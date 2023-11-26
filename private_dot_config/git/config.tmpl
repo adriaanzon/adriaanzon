@@ -1,0 +1,17 @@
+[user]
+	name = Adriaan Zonnenberg
+	email = {{ .email }}
+[commit]
+	verbose = true
+[stash]
+	showPatch = true
+[log]
+	date = auto:human
+[pull]
+	rebase = true
+[alias]
+	silent-commit = commit --allow-empty-message -m ''
+[push]
+	autoSetupRemote = true
+[core]
+	pager = delta --color-only --navigate --navigate-regex='^diff' --max-line-length=0

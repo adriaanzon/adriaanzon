@@ -1,0 +1,21 @@
+#!{{ .prefix }}/bin/fish
+#
+# Fetch newest Homebrew version with updated formualae, and update the fish
+# greeting accordingly.
+#
+# This command will be automatically run by launchd, see:
+# ~/Library/LaunchAgents/dev.adriaan.UpdateFishGreeting.plist
+
+argparse U/no-brew-update -- $argv
+
+if not set -q _flag_no_brew_update
+    {{ .prefix }}/bin/brew update > /dev/null
+end
+
+set -l outdated_packages ({{ .prefix }}/bin/brew outdated)
+
+if test (count $outdated_packages) -eq 0
+    set -U fish_greeting
+else
+    set -U fish_greeting '🍺 Updates:' $outdated_packages
+end

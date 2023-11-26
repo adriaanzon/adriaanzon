@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Update all installed vim plugins.
+# See also: ~/.local/share/chezmoi/run_once_20_install_vim_plugins
+
+git_pull_multiple() {
+    if command -v parallel >/dev/null 2>&1; then
+        # Use GNU parallel if available. This will output a clearer overview.
+        parallel --color-failed -j16 --tagstring {=s:$HOME/:~/:';s:/.git::'=} 'git -C {//} pull'
+    else
+        xargs -t -I{} -P16 git -C {}/.. pull
+    fi
+}
+
+find ~/.config/nvim/pack -name .git -depth 4 -type d | git_pull_multiple

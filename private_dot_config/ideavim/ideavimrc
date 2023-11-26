@@ -1,0 +1,44 @@
+set surround
+
+set commentary
+
+set exchange
+
+set argtextobj
+let g:argtextobj_pairs="(:),[:]"
+
+" Improve default mappings
+nnoremap Y y$
+nmap U <Action>(Vcs.RollbackChangedLines)
+
+" Vim mappings that aren't implemented by IdeaVim
+nnoremap <A-o> o
+nnoremap <A-S-o> O
+inoremap <A-o> <Esc>o
+inoremap <A-S-o> <Esc>O
+nmap gqq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
+vmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)<Esc>
+nmap gqip <Action>(com.andrewbrookins.idea.wrap.WrapParagraphAction)
+
+" Configure which shortcuts should use Vim actions or IDE actions
+" See: https://github.com/JetBrains/ideavim/wiki/sethandler
+sethandler <C-a> a:vim
+sethandler <C-b> a:vim
+sethandler <C-d> a:vim
+sethandler <C-f> a:vim
+sethandler <C-g> a:ide
+sethandler <C-h> a:vim
+sethandler <C-k> i:ide
+sethandler <C-m> a:ide
+sethandler <C-n> a:vim
+sethandler <C-p> a:vim
+sethandler <C-s> a:ide
+sethandler <C-t> a:vim
+sethandler <C-u> a:vim
+imap <S-Left> <Action>(EditorLeftWithSelection)
+imap <S-Right> <Action>(EditorRightWithSelection)
+imap <S-Up> <Action>(EditorUpWithSelection)
+imap <S-Down> <Action>(EditorDownWithSelection)
+
+set visualbell
+set noerrorbells

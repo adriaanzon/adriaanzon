@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+while read -ra fields
+do
+    if [[ ${fields[0]} == "$PPID" ]]
+    then
+        executable_name="${fields[3]}"
+        full_command="${fields[3]} ${fields[*]:4}"
+    fi
+done < <(ps -p $PPID)
+full_command="${full_command//\"/}"
+
+osascript <<EOL
+get text returned of (¬
+    display dialog "Enter password for $USER to execute:\n\n$full_command"¬
+      with title "$executable_name"¬
+      default answer ""¬
+      with hidden answer¬
+)
+EOL

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#
+# Toggle Xdebug 3.
+#
+# Note that with Xdebug 3, the performance has been improved, so this command
+# will not need to be invoked as frequently. It can, however, still be useful
+# for installing Xdebug on a new machine or when updating the PHP version.
+
+set -e
+
+php_version="$(php --version | grep -oE 'PHP (\d\.\d)' | cut -d' ' -f2)"
+php_ini_files=$(php --ini)
+php_ini=$(echo "$php_ini_files" | grep "Loaded Configuration File:" | sed -E 's/.*: +//')
+confd=$(echo "$php_ini_files" | grep "Scan for additional .ini files in:" | sed -E 's/.*: +//')
+xdebug_ini=$confd/xdebug.ini
+
+# Ensure xdebug is installed.
+brew install "shivammathur/extensions/xdebug@$php_version" 2>/dev/null
+
+# Check for xdebug.ini. If it exists, remove it (toggling Xdebug off).
+if [[ -f "$xdebug_ini" ]]
+then
+    tput setaf 1; echo -n "⏻"; tput sgr0; echo " Toggling Xdebug off"
+    rm -v "$xdebug_ini"
+
+# If no xdebug.ini exists, create it (toggling Xdebug on).
+else
+    tput setaf 2; echo -n "⏻"; tput sgr0; echo " Toggling Xdebug on"
+    echo '  Make sure your IDE listens on Xdebug 3’s default port (9003), and any "(force) break at first line" options are unchecked.'
+    echo "Creating $xdebug_ini"
+    cat << INI | tee "$xdebug_ini"
+[xdebug]
+#zend_extension="/opt/homebrew/opt/xdebug@${php_version}/xdebug.so"
+xdebug.mode=debug
+xdebug.start_with_request=yes
+INI
+fi
+
+# Restart PHP-FPM.
+valet restart php

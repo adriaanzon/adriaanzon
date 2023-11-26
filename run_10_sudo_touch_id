@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#
+# Configure sudo to allow using Touch ID.
+
+function main() {
+    printf '%s\n%s\n' "auth sufficient pam_tid.so" "$(cat /etc/pam.d/sudo)" | sudo -kp 'Password to configure sudo for TouchID:' tee /etc/pam.d/sudo
+}
+
+if [[ -f /usr/lib/pam/pam_tid.so.2 ]] && ! grep -Eq 'pam_(watchid|tid).so$' /etc/pam.d/sudo
+then
+    read -p "Configure sudo for Touch ID? (y/N) " choice
+    case "$choice" in 
+        y|Y|yes ) main; exit;;
+        n|N|no ) echo "Did not configure sudo for Touch ID.";;
+    esac
+fi

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>dev.adriaan.UpdateTldrCache</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>{{ .prefix }}/bin/tldr</string>
+        <string>--update</string>
+    </array>
+
+    <!-- Run the command every 1st and 15th of the month at midnight. -->
+    <key>StartCalendarInterval</key>
+    <array>
+        <dict>
+            <key>Day</key>
+            <integer>1</integer>
+        </dict>
+        <dict>
+            <key>Day</key>
+            <integer>15</integer>
+        </dict>     
+    </array>
+</dict>
+</plist>

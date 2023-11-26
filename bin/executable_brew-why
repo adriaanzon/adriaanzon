@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# Determine why a given formula is installed
+#
+# Can be used as a subcommand of brew:
+#   brew why <formula>
+
+set -x
+
+brew uses --installed "$@"

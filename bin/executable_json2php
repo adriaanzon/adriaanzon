@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#
+# Convert a JSON string to PHP.
+#
+# Accepts a filename as an optional argument. If no argument is provided, it
+# reads JSON data from standard input.
+
+set -e
+
+json_data=$(cat "$@")
+
+php_array=$(php -r 'require ($_SERVER["HOME"] . "/.composer/vendor/autoload.php"); echo \Symfony\Component\VarExporter\VarExporter::export(json_decode($argv[1], true));' "$json_data")
+
+echo "$php_array"

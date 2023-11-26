@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Spell files
+curl -o ~/.config/nvim/spell/nl.utf-8.spl --create-dirs https://ftp.nluug.nl/vim/runtime/spell/nl.utf-8.spl
+
+# Python provider
+pip3 install --user --upgrade pynvim
+
+# Plugins that need a special load order (see private_dot_config/nvim/init.vim)
+git clone https://github.com/alker0/chezmoi.vim ~/.config/nvim/pack/alker0/opt/chezmoi.vim 2>/dev/null || true

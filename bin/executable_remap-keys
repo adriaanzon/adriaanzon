@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# This, combined with some mappings in System Preferences > Keyboard > Shortcuts
+# > App Shortcuts > All Applications, replaces my previous usage of Karabiner.
+#
+# See also: https://github.com/pqrs-org/Karabiner-Elements/issues/2196#issuecomment-603663747
+#
+# Through ~/Library/LaunchAgents/dev.adriaan.RemapKeys.plist, this script runs
+# on startup. It may also be activated by a Siri Shortcut with keyboard trigger
+# to remap keys again when reconnecting the external USB keyboard.
+
+# Remap § to `.
+hidutil property \
+    --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}'
+
+# Remap § to ` on the old Apple USB keyboard.
+#hidutil property \
+#    --matching '{"VendorID":0x05ac,"ProductID":0x0250}' \
+#    --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000035,"HIDKeyboardModifierMappingDst":0x700000064}]}'

@@ -1,0 +1,99 @@
+#!/bin/bash
+# vim: foldmethod=marker foldlevel=0
+#
+# Install plugins under ~/.config/nvim/pack/{owner}/start/{repo}.
+
+# {{{ functions
+install_missing_plugins() {
+    for plugin in "${plugins[@]}"; do
+        owner="$(echo "$plugin" | cut -f1 -d/)"
+        repo="$(echo "$plugin" | cut -f2 -d/)"
+        path=~/.config/nvim/pack/$owner/start/$repo
+
+        if [[ ! -d "$path" ]]; then
+            echo "Installing plugin $plugin"
+            git clone --depth 1 --quiet "https://github.com/$plugin" "$path"
+        fi
+    done
+}
+
+uninstall_unwanted_plugins() {
+    for path in ~/.config/nvim/pack/*/start/*; do
+        repo=${path##*/}
+        packdir=${path%/start/$repo}
+        owner=${packdir##*/}
+        plugin=$owner/$repo
+
+        if [[ ! " ${plugins[*]} " == *" ${plugin} "* ]]; then
+            echo "Uninstalling plugin $plugin"
+            rm -rf "$path"
+        fi
+    done
+}
+
+update_helptags() {
+    echo "Updating helptags"
+    nvim --headless +'helptags ALL' +quit
+}
+
+install_missing_language_servers() {
+    for language_server in "${language_servers[@]}"; do
+        package=${language_server##*/}
+        if [[ -f ~/.config/coc/extensions/package.json ]] && jq -e ".dependencies[\"$package\"]" < ~/.config/coc/extensions/package.json > /dev/null; then
+            continue
+        fi
+
+        echo "Installing language server $language_server"
+        nvim --headless +"CocInstall -sync $language_server" +quitall
+    done
+}
+# }}}
+
+plugins=(
+    adriaanzon/vim-emmet-ultisnips
+    adriaanzon/vim-textobj-matchit
+    airblade/vim-helptab
+    arcticicestudio/nord-vim
+    arp242/auto_mkdir2.vim
+    cormacrelf/vim-colors-github
+    dkarter/bullets.vim
+    justinmk/vim-dirvish
+    jwalton512/vim-blade
+    kana/vim-textobj-user
+    khaveesh/vim-fish-syntax
+    neoclide/coc.nvim
+    noahfrederick/vim-laravel
+    pangloss/vim-javascript
+    posva/vim-vue
+    rhysd/vim-gfm-syntax
+    SirVer/ultisnips
+    tommcdo/vim-exchange
+    tpope/vim-abolish
+    tpope/vim-characterize
+    tpope/vim-eunuch
+    tpope/vim-fugitive
+    tpope/vim-projectionist
+    tpope/vim-rhubarb
+    tpope/vim-scriptease
+    tpope/vim-sleuth
+    tpope/vim-surround
+    tpope/vim-unimpaired
+    wellle/targets.vim
+    wsdjeg/vim-fetch
+)
+
+language_servers=(
+    coc-lists
+    coc-pairs
+    coc-phpls
+    coc-tsserver
+    https://github.com/rodrigore/coc-tailwind-intellisense
+)
+
+uninstall_unwanted_plugins
+install_missing_plugins
+update_helptags
+
+install_missing_language_servers
+
+(cd ~/.config/nvim/pack/neoclide/start/coc.nvim && npm install)

@@ -1,0 +1,94 @@
+set -gxa PATH vendor/bin node_modules/.bin
+set -gxp PATH ~/bin {/opt/homebrew,/usr/local}/{bin,sbin} ~/.composer/vendor/bin
+set -gx EDITOR (type -q nvim && echo nvim || echo vim)
+set -gx LANG en_US.UTF-8
+set -gx LC_ALL en_US.UTF-8  
+set -gx LESS '--RAW-CONTROL-CHARS --ignore-case'
+set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
+set -gx FZF_DEFAULT_COMMAND "rg --files"
+
+# Make sure an authentication method is available that relies on GUI input instead of TTY input
+# (primarily for :SudoWrite in Neovim).
+if not grep -qE 'pam_(watchid|tid).so$' /etc/pam.d/sudo
+    set -gx SUDO_ASKPASS ~/bin/askpass
+end
+
+# `brew shellenv`
+set -gx HOMEBREW_PREFIX "{{ .prefix }}"
+set -gx HOMEBREW_CELLAR "{{ .prefix }}/Cellar"
+set -gx HOMEBREW_REPOSITORY "{{ .prefix }}/Homebrew"
+set -gxp MANPATH "{{ .prefix }}/share/man"
+set -gxp INFOPATH "{{ .prefix }}/share/info"
+
+set -g icloud ~/Library/Mobile\ Documents/com~apple~CloudDocs
+
+if not status is-interactive
+    exit
+end
+
+set -g fish_emoji_width 2
+
+abbr -g i --position anywhere --function abbr_install --regex '\b(i(n(s(t(al??)?)?)?)?)\b'
+abbr -g !! --position anywhere --function abbr_last_history_item
+abbr -g - 'cd -'
+abbr -g ... --regex '^\.{3,}$' --function abbr_multicd
+abbr -g art 'php artisan'
+abbr -g cdd 'cd ~/.local/share/chezmoi'
+abbr -g cgu 'composer global update'
+abbr -g ch 'chezmoi'
+abbr -g ci 'composer install'
+abbr -g cr 'composer require'
+abbr -g cu 'composer update'
+abbr -g ga 'git add'
+abbr -g gaa 'git add --all'
+abbr -g gb 'git browse'
+abbr -g gc 'git commit'
+abbr -g gc# 'gh pr checkout'
+abbr -g gca 'git commit -a'
+abbr -g gco 'git checkout'
+abbr -g gd 'git diff'
+abbr -g gdn 'git diff --name-only' # use it like this: vim (gdn)
+abbr -g gds 'git diff --staged'
+abbr -g gf 'git fetch'
+abbr -g gl 'git pull'
+abbr -g gm 'git merge'
+abbr -g gmc 'git merge --continue'
+abbr -g gp 'git push'
+abbr -g gpf 'git push --force-with-lease'
+abbr -g gr 'git rebase'
+abbr -g grc 'git rebase --continue'
+abbr -g grd 'git rebase develop'
+abbr -g grm 'git rebase master'
+abbr -g grs 'git restore'
+abbr -g gs 'git switch'
+abbr -g gs- 'git switch -'
+abbr -g gsc 'git switch -c'
+abbr -g gsd 'git switch develop'
+abbr -g gsm 'git switch master'
+abbr -g gst 'git status'
+abbr -g nah 'git reset --hard && git clean -df'
+abbr -g sl 'ls'
+abbr -g tinker 'php artisan tinker'
+abbr -g vi 'nvim'
+abbr -g vim 'nvim'
+abbr -g zap --position anywhere --function abbr_zap
+
+#
+# Appearance
+#
+
+function set_cursor_executing --on-event fish_preexec --description 'Set the cursor to a steady block when executing a program that is not a command prompt'
+    not echo $argv | grep -qE '^\s*(sudo )?(.*artisan tinker|fzf|node|python|sqlite|psysh)'
+    and eval __fish_cursor_xterm block
+end
+function set_cursor_typing --on-event fish_prompt --description "Set the cursor to a blinking line when in fish's command prompt"
+    eval __fish_cursor_xterm line blink
+end
+
+function update_fish_theme --on-variable ITERM_THEME --on-event=fish_postexec
+    test "$ITERM_THEME" = 'dark'
+    and _set_dark_theme
+    or _set_light_theme
+end
+
+update_fish_theme

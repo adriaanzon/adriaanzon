@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+#
+# Install essential programs.
+
+cat <<BREWFILE | brew bundle --file=-
+brew "composer"
+brew "fish"
+brew "fzf"
+brew "gh"
+brew "git-delta"
+brew "httpie"
+brew "jq"
+brew "mailpit"
+brew "neovim"
+brew "node"
+brew "php"
+brew "ripgrep"
+brew "tree"
+brew "tldr"
+brew "yt-dlp"
+cask "fork"
+cask "iterm2-beta"
+cask "keyboardcleantool"
+cask "maccy"
+cask "monitorcontrol"
+cask "qlstephen"
+cask "rectangle"
+cask "sbarex-qlmarkdown"
+BREWFILE

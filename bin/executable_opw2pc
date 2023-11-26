@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+#
+# Modify the given ChordPro file to a format accepted by Planning Center. Useful
+# for files that are formatted with ChordPro directives but only really work
+# well in OnSong. Strips all ChordPro tags, surrounds pipes with brackets, and
+# changes lines that end with a colon (section headings) into section headings.
+#
+# See: https://pcoservices.zendesk.com/hc/en-us/articles/204262464-Special-Codes-for-Lyrics-and-Chords
+
+
+import argparse
+from os import replace
+import re
+import sys
+
+
+def is_chordpro_tag(line: str) -> str:
+    return line.startswith("{")
+
+
+def convert_heading(line: str) -> str:
+    if not line.endswith(":"):
+        return line
+
+    line = line[:-1].upper()
+
+    if line not in ["PRE-CHORUS"]:
+        line = line.replace("-", " ")
+
+    return line.replace("CODA", "ENDING")
+
+
+def convert_chord_brackets(line: str) -> str:
+    line = (
+        line.replace("|", "[|]")
+        .replace("][", "] [")
+        .replace("o]", "dim]")
+        .replace("ø]", "m7b5]")
+    )
+
+    # Remove the brackets for instrumental parts
+    if not re.search(r"\]\s*[^\[\s]", line) and not re.search(r"[^\]\s]\s*\[", line):
+        line = line.replace("[", "").replace("]", "")
+
+    return line
+
+
+def print_metadata(line: str):
+    if not is_chordpro_tag(line):
+        return
+
+    format = "\033[1m\033[95m{}\033[0m{}"
+    line = line.strip("{}")
+    line = line[:1].upper() + line[1:]
+    (name, content) = line.split(":", True)
+
+    print(format.format(name + ":", content), file=sys.stderr)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Modify a ChordPro file to a format accepted by Planning Center and print it to stdout, while printing metadata to stderr that could be useful when entering the song into Planning Center.",
+        epilog="example: opw2pc ~/Downloads/song.cho | pbcopy",
+    )
+    parser.add_argument(
+        "filename",
+        metavar="filename",
+        type=str,
+        nargs=1,
+        help="Path to the ChordPro file",
+    )
+
+    args = parser.parse_args()
+
+    f = open(args.filename[0], "r")
+
+    lines = f.read().splitlines()
+
+    for line in lines:
+        print_metadata(line)
+    lines = filter(lambda line: not is_chordpro_tag(line), lines)
+    lines = map(convert_heading, lines)
+    lines = map(convert_chord_brackets, lines)
+    lines = map(str.strip, lines)
+
+    print("\n".join(lines).strip())
+
+
+if __name__ == "__main__":
+    main()

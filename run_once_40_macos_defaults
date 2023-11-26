@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# vim:foldmethod=marker
+
+# System {{{1
+
+# Alert volume to 75% (i.e. don't ruin my music with your loud beeps 😾)
+defaults write -g com.apple.sound.beep.volume -float 0.7788008
+
+# Shift-Command-Comma to open System Preferences
+defaults write -g NSUserKeyEquivalents -dict-add \
+    'System Settings...' '@$,' \
+    'Systeemvoorkeuren...' '@$,'
+
+# ColorSlurp {{{1
+
+defaults write com.IdeaPunch.ColorSlurp copyToLastCopyedColorGlobleShortcutKey -dict \
+    keycode -int 0 \
+    modifiers -int 0
+defaults write com.IdeaPunch.ColorSlurp showPickerGlobleShortcutKey -dict \
+    keycode -int 0 \
+    modifiers -int 0
+
+# Maccy {{{1
+
+# Control-Command-V to show popup
+defaults write org.p0deje.Maccy KeyboardShortcuts_popup -string '{"carbonModifiers":4352,"carbonKeyCode":9}'
+
+defaults write org.p0deje.Maccy maxMenuItems -int 12
+defaults write org.p0deje.Maccy pasteByDefault -bool true
+defaults write org.p0deje.Maccy pinTo -string bottom
+
+# Rectangle {{{1
+
+defaults write com.knollsoft.Rectangle disabledApps -string \
+    '["com.apple.logic10"]'
+
+# Disable snapping (only use Rectangle for keyboard shortcuts)
+defaults write com.knollsoft.Rectangle windowSnapping -int 2
+
+# Control-Command-] to move window to next display
+defaults write com.knollsoft.Rectangle nextDisplay -dict \
+    keyCode -int 30 \
+    modifierFlags -int 786432
+
+# Control-Command-[ to move window to previous display
+defaults write com.knollsoft.Rectangle previousDisplay -dict \
+    keyCode -int 33 \
+    modifierFlags -int 786432
+
+# Safari {{{1
+
+defaults write com.apple.Safari AutoFillPasswords -bool false
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
