@@ -1,5 +1,7 @@
-set -gxa PATH vendor/bin node_modules/.bin
-set -gxp PATH ~/bin {/opt/homebrew,/usr/local}/{bin,sbin} ~/.composer/vendor/bin
+{{ output (printf "%s/bin/brew" .prefix) "shellenv" "fish" }}
+set -gx --prepend PATH ~/bin ~/.composer/vendor/bin
+set -gx --append PATH vendor/bin node_modules/.bin
+
 set -gx EDITOR (type -q nvim && echo nvim || echo vim)
 set -gx LANG en_US.UTF-8
 set -gx LC_ALL en_US.UTF-8  
@@ -13,13 +15,6 @@ if not grep -qE 'pam_(watchid|tid).so$' /etc/pam.d/sudo
     set -gx SUDO_ASKPASS ~/bin/askpass
 end
 
-# `brew shellenv`
-set -gx HOMEBREW_PREFIX "{{ .prefix }}"
-set -gx HOMEBREW_CELLAR "{{ .prefix }}/Cellar"
-set -gx HOMEBREW_REPOSITORY "{{ .prefix }}/Homebrew"
-set -gxp MANPATH "{{ .prefix }}/share/man"
-set -gxp INFOPATH "{{ .prefix }}/share/info"
-
 set -g icloud ~/Library/Mobile\ Documents/com~apple~CloudDocs
 
 if not status is-interactive
@@ -28,10 +23,9 @@ end
 
 set -g fish_emoji_width 2
 
-abbr -g i --position anywhere --function abbr_install --regex '\b(i(n(s(t(al??)?)?)?)?)\b'
 abbr -g !! --position anywhere --function abbr_last_history_item
 abbr -g - 'cd -'
-abbr -g ... --regex '^\.{3,}$' --function abbr_multicd
+abbr -g ... --position anywhere --regex '^(cd\s+)?\.{3,}$' --function abbr_multicd
 abbr -g art 'php artisan'
 abbr -g cdd 'cd ~/.local/share/chezmoi'
 abbr -g cgu 'composer global update'
@@ -66,6 +60,7 @@ abbr -g gsc 'git switch -c'
 abbr -g gsd 'git switch develop'
 abbr -g gsm 'git switch master'
 abbr -g gst 'git status'
+abbr -g i --position anywhere --function abbr_install --regex '\b(i(n(s(t(al??)?)?)?)?)\b'
 abbr -g nah 'git reset --hard && git clean -df'
 abbr -g sl 'ls'
 abbr -g tinker 'php artisan tinker'
