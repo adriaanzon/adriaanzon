@@ -7,22 +7,16 @@
 
 set -e
 
-git_dir="$(git rev-parse --git-dir)"
-upstream_branch="$(git rev-parse --abbrev-ref @{u} 2>/dev/null || echo -n '')"
+upstream_branch="$(git rev-parse --abbrev-ref '@{u}' 2>/dev/null || echo -n '')"
+remote="${upstream_branch%%/*}"
+remote="${remote:-origin}"
 current_branch="$(git branch --show-current)"
-
-# Get the default branch using the GitHub API and cache it for 365 days
-if find "$git_dir"/GH_DEFAULT_BRANCH -type f -mtime -365
-then
-    default_branch="$(cat "$git_dir"/GH_DEFAULT_BRANCH)"
-else
-    default_branch="$(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name | tee "$git_dir"/GH_DEFAULT_BRANCH)"
-fi
-
+default_branch="$(git rev-parse --abbrev-ref "$remote/HEAD" || (git remote set-head "$remote" -a > /dev/null && git rev-parse --abbrev-ref "$remote/HEAD"))"
+default_branch="${default_branch##*/}"
 
 if [[ "$current_branch" = "$default_branch" || -z "$upstream_branch" ]]
 then
     gh browse
 else
-    gh browse --branch $(git rev-parse --abbrev-ref HEAD)
+    gh browse --branch "$(git rev-parse --abbrev-ref HEAD)"
 fi
