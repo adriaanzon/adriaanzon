@@ -29,6 +29,16 @@ defaults write org.p0deje.Maccy maxMenuItems -int 12
 defaults write org.p0deje.Maccy pasteByDefault -bool true
 defaults write org.p0deje.Maccy pinTo -string bottom
 
+# Music {{{1
+
+# Add keyboard shortcuts for repeat and shuffle
+defaults write com.apple.Music NSUserKeyEquivalents -dict-add \
+    '\033Controls\033Repeat\033All' '@r' \
+    '\033Controls\033Repeat\033Off' '@$r' \
+    '\033Controls\033Repeat\033One' '@~r' \
+    '\033Controls\033Shuffle\033Off' '@$s' \
+    '\033Controls\033Shuffle\033On' '@s'
+
 # Rectangle {{{1
 
 defaults write com.knollsoft.Rectangle disabledApps -string \
@@ -52,3 +62,8 @@ defaults write com.knollsoft.Rectangle previousDisplay -dict \
 defaults write com.apple.Safari AutoFillPasswords -bool false
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+
+# Override Command-I in Safari to something less annoying
+defaults write com.apple.Safari NSUserKeyEquivalents -dict-add \
+    'Share...' '@i' \
+    'Deel...' '@i'

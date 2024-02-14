@@ -6,9 +6,9 @@ set termguicolors
 nnoremap <Esc> :nohlsearch <Bar> echo<CR>
 
 " Press Space-C to fix issues related to coloring.
-nnoremap <Space>c :set synmaxcol=3000 <Bar> call <SID>DetectColorScheme()<CR>
+nnoremap <Space>c :set synmaxcol=3000 <Bar> call appearance#DetectColorScheme()<CR>
 
-function! s:DetectColorScheme()
+function! appearance#DetectColorScheme()
     let l:result = systemlist(['defaults', 'read', '-g', 'AppleInterfaceStyle'])[0]
 
     call s:SetColorScheme(l:result is# 'Dark' ? 'dark' : 'light')
@@ -19,6 +19,7 @@ function! s:SetColorScheme(theme)
 
     if a:theme is# 'dark'
         colorscheme nord
+        highlight Normal guibg=NONE ctermbg=NONE
     else
         colorscheme github
     endif
