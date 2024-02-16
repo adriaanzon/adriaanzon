@@ -7,6 +7,7 @@ import asyncio
 import iterm2
 import subprocess
 
+
 async def update(connection, theme):
     # Themes have space-delimited attributes, one of which will be light or dark.
     parts = theme.split(" ")
@@ -18,11 +19,15 @@ async def update(connection, theme):
         subprocess.run(["{{ .prefix }}/bin/fish", "-c", "set -Ux ITERM_THEME light"])
 
     # Update the list of all profiles and iterate over them.
-    profiles=await iterm2.PartialProfile.async_query(connection)
+    profiles = await iterm2.PartialProfile.async_query(connection)
     for partial in profiles:
         # Fetch the full profile and then set the color preset in it.
         profile = await partial.async_get_full_profile()
         await profile.async_set_color_preset(preset)
+
+    # Signal all Neovim instances that the window has changed.
+    subprocess.run(["killall", "-q", "-WINCH", "nvim"])
+
 
 async def main(connection):
     app = await iterm2.async_get_app(connection)

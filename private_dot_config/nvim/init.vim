@@ -4,7 +4,7 @@ set autoindent expandtab shiftwidth=4
 set foldlevelstart=99
 set hidden
 set ignorecase smartcase
-set linebreak nowrap showbreak=\ ↳
+set linebreak nowrap showbreak=\ ↪
 set mouse=a
 set nojoinspaces
 set spelllang=en,nl

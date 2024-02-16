@@ -34,3 +34,8 @@ endfunction
 if !empty($ITERM_THEME)
     call s:SetColorScheme($ITERM_THEME)
 endif
+
+augroup AutoDetectColorScheme
+    autocmd!
+    autocmd Signal SIGWINCH call appearance#DetectColorScheme()
+augroup END
