@@ -31,6 +31,7 @@ nnoremap <silent><nowait> <Space>e :<C-u>CocList mru<CR>
 nnoremap <silent><nowait> <Space>F :<C-u>CocList grep<CR>
 
 nmap <M-CR> <Plug>(coc-codeaction-cursor)
+nmap <D-b> <Plug>(coc-definition)
 
 " Abbreviations for Ex-commands
 abbreviate qw wq
