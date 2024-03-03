@@ -1,4 +1,13 @@
-{{/* Removed since it stopped working in macOS 14.2, see https://apple.stackexchange.com/questions/467341/hidutil-stopped-working-on-macos-14-2-update */}}
+#!/usr/bin/env bash
+#
+# Add RemapKeys launch daemon to remap § to `.
+
+if [[ -f /Library/LaunchDaemons/dev.adriaan.RemapKeys.plist ]]
+then
+    exit 0
+fi
+
+cat << EOF | sudo -kp 'Password to install RemapKeys:' tee /Library/LaunchDaemons/dev.adriaan.RemapKeys.plist
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -15,3 +24,4 @@
     <true/>
 </dict>
 </plist>
+EOF
