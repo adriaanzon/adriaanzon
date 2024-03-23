@@ -1,0 +1,36 @@
+{
+    "scan_apps": [],
+    "services": [],
+    "presets": [
+        {
+            "name": "My preset",
+            "extensions": {
+                "xdebug": true,
+                "imagick": true,
+                "redis": true
+            },
+            "configuration": {
+                "memory_limit": "1G",
+                "upload_max_filesize": "1G",
+                "post_max_size": "1G",
+                "xdebug.mode": "debug",
+                "xdebug.start_with_request": "yes"
+            }
+        },
+        {
+            "name": "No memory limit",
+            "extensions": {},
+            "configuration": {
+                "memory_limit": "-1"
+            }
+        },
+        {
+            "name": "Disable Xdebug",
+            "extensions": {
+                "xdebug": false
+            },
+            "configuration": {}
+        }
+    ],
+    "export": {}
+}
