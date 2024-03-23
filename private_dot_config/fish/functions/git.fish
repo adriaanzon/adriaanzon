@@ -8,6 +8,9 @@ function git
     if test $subcommand = commit
         _git_confirm_committer
         or return
+
+        _git_license_year
+        or return
     end
 
     command git $argv
@@ -27,7 +30,7 @@ function _git_confirm_committer
         end
 
         # Trigger a confirmation
-        read confirmed --prompt-str "$confirmation"
+        read -l confirmed --prompt-str "$confirmation"
 
         if string match -qr -- '^y' $confirmed
             # When the user wants to continue using the unknown email, return zero.
@@ -46,4 +49,25 @@ function _git_confirm_committer
         # Return non-zero to abort committing.
         return 1
     end
+end
+
+# Warn when LICENSE year is outdated
+function _git_license_year
+    # Find a license with an outdated year. Return zero when it isn't found, to continue committing.
+    set -l file (rg "(?!.*$(date +%Y))Copyright.*\d{4}.*Adriaan Zonnenberg" (git rev-parse --show-toplevel) --glob='LICENSE*' --max-depth=1 --pcre2 --files-with-matches | head -n1)
+    test $pipestatus[1] -eq 0
+    or return 0
+
+    set basename (basename $file)
+
+    string match -qr -- '^y' (read --prompt-str "The $basename file doesn't contain the current year."\n"Do you wish to continue? (y/N) ")
+    and return 0
+
+    string match -qr -- '^y' (read --prompt-str "Do you want to edit $basename and continue? (y/N) ")
+    and $EDITOR $file
+    and git add $file
+    and return 0
+
+    # Return non-zero to abort committing.
+    return 1
 end
