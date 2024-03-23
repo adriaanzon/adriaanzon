@@ -22,33 +22,27 @@ function _git_confirm_committer
     set email (command git config user.email)
     set previously_used_email (git log --all --author="$name" --oneline -n1 --pretty=format:'%ae')
 
-    if test "$email" != "$previously_used_email"
-        if test -n "$previously_used_email"
-            set confirmation "This email ($email) does not match the email of your previous commit ($previously_used_email)."\n"Do you wish to continue? (y/N) "
-        else
-            set confirmation "You haven't commited to this repository before."\n"Do you wish to continue with $email? (y/N) "
-        end
+    test "$email" = "$previously_used_email"
+    and return 0
 
-        # Trigger a confirmation
-        read -l confirmed --prompt-str "$confirmation"
-
-        if string match -qr -- '^y' $confirmed
-            # When the user wants to continue using the unknown email, return zero.
-            return 0
-        else if test -n "$previously_used_email"
-            read confirmed_email_change --prompt-str "Do you want to change the email of this repository to $previously_used_email and continue? (y/N) "
-
-            if string match -qr -- '^y' $confirmed_email_change
-                git config --local user.email "$previously_used_email"
-
-                # Return zero after successfully changing the email, to continue committing.
-                and return 0
-            end
-        end
-
-        # Return non-zero to abort committing.
-        return 1
+    if test -n "$previously_used_email"
+        set confirmation "This email ($email) does not match the email of your previous commit ($previously_used_email)."\n"Do you wish to continue? (y/N) "
+    else
+        set confirmation "You haven't commited to this repository before."\n"Do you wish to continue with $email? (y/N) "
     end
+
+    # When the user wants to continue using the unknown email, return zero to continue committing.
+    string match -qr -- '^y' (read --prompt-str "$confirmation")
+    and return 0
+
+    # Allow changing the email and continue committing.
+    test -n "$previously_used_email"
+    and string match -qr -- '^y' (read --prompt-str "Do you want to change the email of this repository to $previously_used_email and continue? (y/N) ")
+    and git config --local user.email "$previously_used_email"
+    and return 0
+
+    # Return non-zero to abort committing.
+    return 1
 end
 
 # Warn when LICENSE year is outdated
