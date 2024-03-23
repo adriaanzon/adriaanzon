@@ -9,6 +9,7 @@ set -gx LESS '--RAW-CONTROL-CHARS --ignore-case'
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 set -gx FZF_DEFAULT_COMMAND "rg --files"
 set -gx FZF_CTRL_T_COMMAND "rg --files"
+set -gx FZF_DEFAULT_OPTS "--bind=ctrl-j:accept,ctrl-k:kill-line"
 
 # Make sure an authentication method is available that relies on GUI input instead of TTY input
 # (primarily for :SudoWrite in Neovim).

@@ -6,5 +6,5 @@
 tags
 Session.vim
 
-.php_cs.cache
+.php-cs-fixer.cache
 .valetphprc
