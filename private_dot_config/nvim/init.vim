@@ -1,11 +1,9 @@
 " See also settings that are structured by feature in the "plugin" folder.
 
-set autoindent expandtab shiftwidth=4
+set expandtab shiftwidth=4
 set foldlevelstart=99
-set hidden
 set ignorecase smartcase
 set linebreak nowrap showbreak=\ ↪
-set mouse=a
 set nojoinspaces
 set spelllang=en,nl
 set splitbelow splitright
@@ -16,7 +14,6 @@ nnoremap c# #NcgN
 nnoremap c* *Ncgn
 nnoremap N Nzz
 nnoremap n nzz
-nnoremap Y y$
 
 "
 " Plugin-specific settings

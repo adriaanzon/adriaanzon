@@ -35,18 +35,6 @@ update_helptags() {
     echo "Updating helptags"
     nvim --headless +'helptags ALL' +quit
 }
-
-install_missing_language_servers() {
-    for language_server in "${language_servers[@]}"; do
-        package=${language_server##*/}
-        if [[ -f ~/.config/coc/extensions/package.json ]] && jq -e ".dependencies[\"$package\"]" < ~/.config/coc/extensions/package.json > /dev/null; then
-            continue
-        fi
-
-        echo "Installing language server $language_server"
-        nvim --headless +"CocInstall -sync $language_server" +quitall
-    done
-}
 # }}}
 
 plugins=(
@@ -61,7 +49,6 @@ plugins=(
     jwalton512/vim-blade
     kana/vim-textobj-user
     khaveesh/vim-fish-syntax
-    neoclide/coc.nvim
     noahfrederick/vim-laravel
     pangloss/vim-javascript
     posva/vim-vue
@@ -83,18 +70,6 @@ plugins=(
     wsdjeg/vim-fetch
 )
 
-language_servers=(
-    coc-lists
-    coc-pairs
-    coc-phpls
-    coc-tsserver
-    https://github.com/rodrigore/coc-tailwind-intellisense
-)
-
 uninstall_unwanted_plugins
 install_missing_plugins
 update_helptags
-
-install_missing_language_servers
-
-(cd ~/.config/nvim/pack/neoclide/start/coc.nvim && npm install)

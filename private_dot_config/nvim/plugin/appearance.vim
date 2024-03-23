@@ -23,9 +23,6 @@ function! s:SetColorScheme(theme)
     else
         colorscheme github
     endif
-
-    " Fix coc.nvim highlight color
-    highlight! link CocMenuSel PmenuSel
 endfunction
 
 " On startup, set the color scheme based on the $ITERM_THEME universal
