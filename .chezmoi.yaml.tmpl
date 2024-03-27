@@ -1,0 +1,4 @@
+{{- $email := promptString "email" -}}
+data:
+  email: "{{ $email }}"
+  prefix: {{- if (eq .chezmoi.arch "amd64") }} "/usr/local" {{- else }} "/opt/homebrew" {{- end }}

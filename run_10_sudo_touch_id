@@ -9,7 +9,7 @@ function main() {
 if [[ -f /usr/lib/pam/pam_tid.so.2 ]] && ! grep -Eq 'pam_(watchid|tid).so$' /etc/pam.d/sudo
 then
     read -p "Configure sudo for Touch ID? (y/N) " choice
-    case "$choice" in 
+    case "$choice" in
         y|Y|yes ) main; exit;;
         n|N|no ) echo "Did not configure sudo for Touch ID.";;
     esac

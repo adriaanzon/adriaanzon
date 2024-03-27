@@ -1,0 +1,4 @@
+".config/nvim/spell/nl.utf-8.spl":
+  type: "file"
+  url: "https://ftp.nluug.nl/vim/runtime/spell/nl.utf-8.spl"
+  refreshPeriod: "672h"

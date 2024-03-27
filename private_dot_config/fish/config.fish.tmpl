@@ -4,7 +4,7 @@ set -gx --append PATH vendor/bin node_modules/.bin
 
 set -gx EDITOR (type -q nvim && echo nvim || echo vim)
 set -gx LANG en_US.UTF-8
-set -gx LC_ALL en_US.UTF-8  
+set -gx LC_ALL en_US.UTF-8
 set -gx LESS '--RAW-CONTROL-CHARS --ignore-case'
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 set -gx FZF_DEFAULT_COMMAND "rg --files"

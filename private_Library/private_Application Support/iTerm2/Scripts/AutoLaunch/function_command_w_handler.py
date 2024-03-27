@@ -17,12 +17,9 @@ async def main(connection):
     async def command_w_handler():
         session = app.current_terminal_window.current_tab.current_session
 
-        # TODO: Also detect Vim on SSH connections. On Ubuntu and Debian, the
-        # 'ruler' option is enabled by default, so I could check if the bottom
-        # right corner matches "All", "Top", "Bot" or "\d+%".
         if re.search(r"\bNVIM\b", await session.async_get_variable('name')):
-            # Send CTRL-W_CTRL-Q sequence.
-            await session.async_send_text("\x17\x11")
+            # Send Command-W escape sequence.
+            await session.async_send_text("\033[119;9u")
         else:
             # Close window like normal ⌘W.
             await asyncio.gather(session.async_close())
