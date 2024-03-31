@@ -25,5 +25,7 @@ vim.g.PHP_noArrowMatching = true
 
 vim.cmd("cabbrev qw wq")
 
+vim.api.nvim_create_autocmd("CmdWinEnter", { command = "startinsert" })
+
 require("adriaan.iterm2")
 require("init_lazy")

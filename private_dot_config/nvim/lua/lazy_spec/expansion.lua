@@ -1,3 +1,5 @@
+-- Extensions to `:h insert.txt`
+
 return {
     {
         "adriaanzon/vim-emmet-ultisnips",

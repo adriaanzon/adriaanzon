@@ -21,7 +21,7 @@ return {
     {
         "tpope/vim-rhubarb",
         dependencies = { "tpope/vim-fugitive" },
-        cmd = { "GBrowse" },
+        cmd = { "Git", "GBrowse" },
     },
     "tpope/vim-sleuth",
     { "tpope/vim-unimpaired", event = "VeryLazy" },

@@ -1,3 +1,5 @@
+-- Extensions to `:h filetype.txt`
+
 return {
     {
         "alker0/chezmoi.vim",
