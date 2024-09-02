@@ -6,6 +6,9 @@ set surround
 set commentary
 
 set exchange
+" With vim-exchange, there's no need for Vim's default behavior of copying the
+" visual selection when pasting over it. See :help v_p.
+vnoremap p P
 
 set argtextobj
 let g:argtextobj_pairs="(:),[:]"
@@ -47,6 +50,7 @@ nnoremap <Space>t :execute "!/Users/adriaan/bin/terminal-vim-phpstorm %:" . line
 sethandler <C-a> a:vim
 sethandler <C-b> a:vim
 sethandler <C-d> a:vim
+sethandler <C-e> a:ide
 sethandler <C-f> a:vim
 sethandler <C-g> a:ide
 sethandler <C-h> a:vim
@@ -57,6 +61,7 @@ sethandler <C-p> a:vim
 sethandler <C-s> a:ide
 sethandler <C-t> a:vim
 sethandler <C-u> a:vim
+sethandler <C-y> a:ide
 
 imap <S-Left> <Action>(EditorLeftWithSelection)
 imap <S-Right> <Action>(EditorRightWithSelection)

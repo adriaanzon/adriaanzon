@@ -25,4 +25,5 @@ return {
     },
     "tpope/vim-sleuth",
     { "tpope/vim-unimpaired", event = "VeryLazy" },
+    "wsdjeg/vim-fetch",
 }

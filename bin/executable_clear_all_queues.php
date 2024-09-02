@@ -1,24 +1,26 @@
 #!/usr/bin/env php
 <?php
 
-require 'vendor/autoload.php';
-
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Artisan;
 
-$horizonConfig = require 'config/horizon.php';
+require 'vendor/autoload.php';
+(require 'bootstrap/app.php')->make(Kernel::class)->bootstrap();
 
-$queues = array_unique(
-    Arr::flatten([
-        data_get($horizonConfig, 'defaults.*.queue'),
-        data_get($horizonConfig, 'environments.*.*.queue'),
-    ])
-);
+$queues = collect([
+    data_get(config('horizon'), 'defaults.*.queue'),
+    data_get(config('horizon'), 'environments.*.*.queue'),
+])->flatten()->filter()->unique();
 
-if (count($queues) === 0) {
+if ($queues->isEmpty()) {
     echo "No Horizon queue configuration found. Clearing without specifying queue.\n";
-    system("php artisan horizon:clear");
+
+    Artisan::call('horizon:clear', ['--ansi' => true]);
+    echo Artisan::output();
 } else {
     foreach ($queues as $queue) {
-        system("php artisan horizon:clear --queue={$queue}");
+        Artisan::call('horizon:clear', ['--queue' => $queue, '--ansi' => true]);
+        echo Artisan::output();
     }
 }

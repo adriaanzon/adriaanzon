@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# Edit file in terminal vim, and return to phpstorm
+
+osascript - "$1" <<END
+on run argv
+    set coldStart to application "iTerm" is not running
+
+    tell application "iTerm"
+        activate
+
+        -- Delay, otherwise two windows will be opened.
+        if coldStart then
+            delay 1
+        end if
+
+        tell current window
+            set newTab to (create tab with default profile)
+        end tell
+
+        if newTab is missing value then
+            set newTab to first tab of (create window with default profile)
+        end if
+
+        tell first session of newTab
+            -- Try starting vim with the given file. When the shortcut was started without a file, the input variable will not have a POSIX path, and this code will cause an error. In that case, we'll open an empty vim instance instead.
+            if item 1 of argv is not "" then
+                write text ("nvim " & quote & item 1 of argv & quote & "; pstorm; exit")
+            else
+                write text "nvim; exit"
+            end if
+        end tell
+    end tell
+end run
+END

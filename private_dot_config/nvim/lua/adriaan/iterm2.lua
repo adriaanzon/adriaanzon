@@ -1,3 +1,7 @@
+if vim.g.vscode then
+    return
+end
+
 -- Mappings using the Command modifier key. iTerm2 should be configured to send
 -- CSI u escape sequences pressing these key combinations.
 -- See: `:h tui-modifyOtherKeys`, https://www.leonerd.org.uk/hacks/fixterms/,

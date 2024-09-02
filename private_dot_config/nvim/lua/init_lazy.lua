@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Load plugin specs from lua/lazy_spec/*.lua
 require("lazy").setup("lazy_spec", {
     change_detection = { notify = false },
+    defaults = { cond = not vim.g.vscode },
     ui = {
         icons = {
             cmd = "⌘",

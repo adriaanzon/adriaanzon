@@ -15,5 +15,15 @@ return {
             vim.g.bullets_renumber_on_change = false
         end,
     },
+    {
+        "github/copilot.vim",
+        init = function ()
+            vim.keymap.set('i', '<C-y>', 'copilot#Accept("")', {
+                expr = true,
+                replace_keycodes = false
+            })
+            vim.g.copilot_no_tab_map = true
+        end,
+    },
     "tpope/vim-endwise",
 }

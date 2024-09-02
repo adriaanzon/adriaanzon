@@ -1,6 +1,7 @@
 -- Extensions to `:h filetype.txt`
 
 return {
+    "alexandersix/vim-blade",
     {
         "alker0/chezmoi.vim",
         init = function ()

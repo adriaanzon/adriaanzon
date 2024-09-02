@@ -1,3 +1,7 @@
+if vim.g.vscode then
+    return {}
+end
+
 local colors = {}
 
 colors.init_color_scheme = function (background)
