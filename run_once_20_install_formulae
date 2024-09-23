@@ -2,7 +2,7 @@
 #
 # Install essential programs.
 
-cat <<BREWFILE | brew bundle --file=-
+cat <<BREWFILE | brew bundle --no-upgrade --file=-
 brew "composer"
 brew "fish"
 brew "fzf"
@@ -15,12 +15,12 @@ brew "neovim"
 brew "node"
 brew "php"
 brew "ripgrep"
-brew "tree"
 brew "tldr"
+brew "tree"
 brew "yt-dlp"
 cask "fork"
 cask "hammerspoon"
-cask "iterm2-beta"
+cask "iterm2@beta"
 cask "keyboardcleantool"
 cask "maccy"
 cask "monitorcontrol"

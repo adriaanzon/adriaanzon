@@ -1,5 +1,5 @@
 return {
-    { "airblade/vim-helptab", keys = ":" },
+    { "airblade/vim-helptab", keys = { { "h", mode = "c" } } },
     { "arp242/auto_mkdir2.vim", event = "BufWritePre" },
     { "farmergreg/vim-lastplace", event = "BufRead" },
     "justinmk/vim-dirvish",

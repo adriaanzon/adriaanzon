@@ -15,9 +15,11 @@ colors.set_color_scheme = function (background)
         vim.cmd("colorscheme nord")
         vim.opt.background = "dark"
         vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
+        vim.cmd("highlight CopilotSuggestion guifg=#414a5c ctermfg=8")
     else
         vim.cmd("colorscheme github")
         vim.opt.background = "light"
+        vim.cmd("highlight CopilotSuggestion guifg=#cdd4e5 ctermfg=8")
     end
 end
 
