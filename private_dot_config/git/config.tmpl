@@ -11,6 +11,7 @@
 	rebase = true
 [alias]
 	silent-commit = commit --allow-empty-message -m ''
+	wip = !git commit -m wip --no-verify && git push --no-verify
 [push]
 	autoSetupRemote = true
 [core]

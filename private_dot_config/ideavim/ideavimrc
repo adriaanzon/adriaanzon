@@ -73,3 +73,5 @@ imap <S-Down> <Action>(EditorDownWithSelection)
 
 set visualbell
 set noerrorbells
+
+set ideajoin
