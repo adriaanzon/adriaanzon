@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # Python provider
-pip3 install --user --upgrade --break-system-packages pynvim
+uv pip install --system --upgrade --break-system-packages pynvim

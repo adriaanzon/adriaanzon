@@ -1,3 +1,10 @@
 {{ if eq .chezmoi.os "darwin" -}}
 set -g default-terminal screen-256color
 {{ end -}}
+
+set -g mouse on
+
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R

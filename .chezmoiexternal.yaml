@@ -2,3 +2,8 @@
   type: "file"
   url: "https://ftp.nluug.nl/vim/runtime/spell/nl.utf-8.spl"
   refreshPeriod: "672h"
+
+".config/fish/conf.d/iterm2_shell_integration.fish":
+  type: "file"
+  url: "https://iterm2.com/shell_integration/fish"
+  refreshPeriod: "672h"
