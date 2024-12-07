@@ -1,5 +1,5 @@
 {{ output (printf "%s/bin/brew" .prefix) "shellenv" "fish" }}
-set -gx --prepend PATH ~/bin ~/.composer/vendor/bin
+set -gx --prepend PATH ~/bin ~/.cargo/bin ~/.composer/vendor/bin
 set -gx --append PATH vendor/bin node_modules/.bin
 
 set -gx EDITOR (type -q nvim && echo nvim || echo vim)
@@ -35,7 +35,7 @@ abbr -g aps 'ansible-playbook -i staging'
 abbr -g art 'php artisan'
 abbr -g av 'ansible-vault'
 abbr -g cdd 'cd ~/.local/share/chezmoi'
-abbr -g cgu 'composer global update'
+abbr -g cg 'cargo'
 abbr -g ch 'chezmoi'
 abbr -g ci 'composer install'
 abbr -g cr 'composer require'

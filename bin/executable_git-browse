@@ -18,5 +18,5 @@ if [[ "$current_branch" = "$default_branch" || -z "$upstream_branch" ]]
 then
     gh browse
 else
-    gh browse --branch "$(git rev-parse --abbrev-ref HEAD)"
+    gh browse --branch "$current_branch"
 fi

@@ -18,4 +18,4 @@
 input_file="$1"
 output_file="${2:-${1%.*}.mp3}"
 
-ffmpeg -i "$input_file" -af "loudnorm=I=-16,silenceremove=stop_periods=-1:stop_duration=10:stop_threshold=-50dB" "$output_file"
+ffmpeg -i "$input_file" -af "loudnorm=I=-16:print_format=summary,silenceremove=stop_periods=-1:stop_duration=10:stop_threshold=-50dB" "$output_file"
