@@ -1,5 +1,5 @@
 {{ output (printf "%s/bin/brew" .prefix) "shellenv" "fish" }}
-set -gx --prepend PATH ~/bin ~/.cargo/bin ~/.composer/vendor/bin
+set -gx --prepend PATH ~/bin ~/.cargo/bin ~/.composer/vendor/bin ~/Library/Application\ Support/Herd/bin
 set -gx --append PATH vendor/bin node_modules/.bin
 
 set -gx EDITOR (type -q nvim && echo nvim || echo vim)
@@ -64,11 +64,10 @@ abbr -g grs 'git restore'
 abbr -g gs 'git switch'
 abbr -g gs- 'git switch -'
 abbr -g gsc 'git switch -c'
-abbr -g gsd 'git switch develop'
-abbr -g gsm 'git switch master'
+abbr -g gsd --function abbr_git_switch_develop
+abbr -g gsm --function abbr_git_switch_master
 abbr -g gst 'git status'
 abbr -g i --position anywhere --function abbr_install --regex '\b(i(n(s(t(al??)?)?)?)?)\b'
-abbr -g make:operation --position anywhere 'operations:make'
 abbr -g nah 'git reset --hard && trash -v (git ls-files --others --exclude-standard)'
 abbr -g sl 'ls'
 abbr -g tinker 'php artisan tinker'
