@@ -68,7 +68,7 @@ abbr -g gsd --function abbr_git_switch_develop
 abbr -g gsm --function abbr_git_switch_master
 abbr -g gst 'git status'
 abbr -g i --position anywhere --function abbr_install --regex '\b(i(n(s(t(al??)?)?)?)?)\b'
-abbr -g nah 'git reset --hard && trash -v (git ls-files --others --exclude-standard)'
+abbr -g nah 'git reset --hard && trash -v (git ls-files --others --exclude-standard --directory --no-empty-directory)'
 abbr -g sl 'ls'
 abbr -g tinker 'php artisan tinker'
 abbr -g vi 'nvim'

@@ -13,9 +13,12 @@ if not set -q _flag_no_brew_update
 end
 
 set -l outdated_packages ({{ .prefix }}/bin/brew outdated)
+set -l outdated_packages_count (count $outdated_packages)
 
-if test (count $outdated_packages) -eq 0
+if test $outdated_packages_count -eq 0
     set -U fish_greeting
-else
+else if test $outdated_packages_count -lt 20
     set -U fish_greeting '🍺 Updates:' $outdated_packages
+else
+    set -U fish_greeting '🍺' $outdated_packages_count 'updates available'
 end
