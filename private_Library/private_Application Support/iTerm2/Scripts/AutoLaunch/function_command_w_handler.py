@@ -17,7 +17,7 @@ async def main(connection):
     async def command_w_handler():
         session = app.current_terminal_window.current_tab.current_session
 
-        if re.search(r"\bNVIM\b", await session.async_get_variable('name')):
+        if re.search(r"\b(NVIM|Nvim)\b", await session.async_get_variable('name')):
             # Send Command-W escape sequence.
             await session.async_send_text("\033[119;9u")
         else:

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Note that the login item provided by NepTunes should be removed, otherwise the app will be launched twice -->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>dev.adriaan.KeepAlive.NepTunes</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Applications/NepTunes.app/Contents/MacOS/NepTunes</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- This ensures that the NepTunes is restarted when it crashes, which it regularly does -->
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessExit</key>
+        <false/>
+    </dict>
+</dict>
+</plist>
