@@ -20,5 +20,5 @@ if test $outdated_packages_count -eq 0
 else if test $outdated_packages_count -lt 20
     set -U fish_greeting '🍺 Updates:' $outdated_packages
 else
-    set -U fish_greeting '🍺' $outdated_packages_count 'updates available'
+    set -U fish_greeting '🍺' $(hyperlink "$outdated_packages_count updates available" 'hammerspoon://iTermCommand?command=brewOutdated')
 end
