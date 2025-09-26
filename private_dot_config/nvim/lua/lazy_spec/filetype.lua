@@ -1,7 +1,10 @@
 -- Extensions to `:h filetype.txt`
 
 return {
-    "alexandersix/vim-blade",
+    {
+        "alexandersix/vim-blade",
+        cond = true, -- allow in vscode
+    },
     {
         "alker0/chezmoi.vim",
         init = function ()

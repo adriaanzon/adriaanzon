@@ -4,5 +4,10 @@
         "key": "ctrl+d",
         "command": "-workbench.action.debug.run",
         "when": "debuggersAvailable && !inDebugMode && !terminalFocus"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.tasks.reRunTask",
+        "when": "taskCommandsRegistered && !terminalFocus"
     }
 ]

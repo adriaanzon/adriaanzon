@@ -13,10 +13,10 @@ async def update(connection, theme):
     parts = theme.split(" ")
     if "dark" in parts:
         preset = await iterm2.ColorPreset.async_get(connection, "Nord")
-        subprocess.run(["{{ .prefix }}/bin/fish", "-c", "set -Ux ITERM_THEME dark"])
+        theme_name = "dark"
     else:
         preset = await iterm2.ColorPreset.async_get(connection, "Tango Light")
-        subprocess.run(["{{ .prefix }}/bin/fish", "-c", "set -Ux ITERM_THEME light"])
+        theme_name = "light"
 
     # Update the list of all profiles and iterate over them.
     profiles = await iterm2.PartialProfile.async_query(connection)
@@ -25,8 +25,8 @@ async def update(connection, theme):
         profile = await partial.async_get_full_profile()
         await profile.async_set_color_preset(preset)
 
-    # Signal all Neovim instances that the window has changed.
-    subprocess.run(["killall", "-q", "-WINCH", "nvim"])
+    # Call the fish script to set the universal variable and update configuration of other apps.
+    subprocess.run(["{{ .chezmoi.homeDir }}/bin/set_theme.fish", theme_name])
 
 
 async def main(connection):

@@ -5,10 +5,14 @@ function git
         and break
     end
 
-    if test $subcommand = commit
+    # When running any subcommand that usually creates a commit, confirm the committer.
+    if contains -- "$subcommand" commit merge rebase cherry-pick revert am apply
         _git_confirm_committer
         or return
+    end
 
+    # When running subcommands that deliberately create a commit, check the license year.
+    if contains -- "$subcommand" commit cherry-pick revert am apply
         _git_license_year
         or return
     end

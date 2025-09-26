@@ -1,0 +1,13 @@
+{
+    "github.copilot.advanced": {},
+    "window.autoDetectColorScheme": true,
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "workbench.sideBar.location": "right",
+    "editor.minimap.enabled": false,
+    "autoHide.sideBarDelay": 0,
+    "editor.fontSize": 14,
+    "workbench.preferredLightColorTheme": "GitHub Light"
+}

@@ -8,3 +8,5 @@ Session.vim
 
 .php-cs-fixer.cache
 .valetphprc
+
+**/.claude/settings.local.json

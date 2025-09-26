@@ -1,0 +1,20 @@
+#!{{ .prefix }}/bin/fish
+# This script is called by an iTerm2 python script to set the theme used by CLI applications.
+
+if test (count $argv) -eq 0 || not string match -q $argv[1] light dark
+    echo "Usage: set_theme.fish <light|dark>"
+    exit 1
+end
+
+# Set the ITERM_THEME universal variable. This variable is watched by every active Fish shell to set its colors
+# accordingly, and it is exported to child processes which may use it to set their themes as well.
+set -Ux ITERM_THEME $argv[1]
+
+# Configure the theme for Claude Code if it is installed
+# Actually this only works if iTerm is running while the theme is being changed. Try using ITERM_THEME when starting Claude instead.
+if type -q claude
+    claude config set -g theme $argv[1] &
+end
+
+# Signal all Neovim instances that the window has changed
+killall -q -WINCH nvim

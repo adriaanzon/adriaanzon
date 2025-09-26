@@ -31,4 +31,5 @@ cask "monitorcontrol"
 cask "qlstephen"
 cask "rectangle"
 cask "sbarex-qlmarkdown"
+cask "windowkeys"
 BREWFILE
