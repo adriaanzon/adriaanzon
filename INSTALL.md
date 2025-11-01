@@ -27,6 +27,44 @@ Next up are some instructions to follow when setting up a new Mac, for options t
 1. Open System Preferences > Keyboard > Keyboard Shortcuts...
 2. Under "Services", disable the Command-Shift-A and Command-Shift-M shortcuts.
 
+### WindowKeys
+
+Configure WindowKeys keyboard shortcuts to be similar to Rectangle:
+
+1. Open WindowKeys > Edit Window-Tiling Shortcuts
+2. Configure the following shortcuts:
+   - **Fill & Center**:
+     - Fill: Control-Option-Return
+     - Center: Control-Option-C
+   - **Move & Resize** (Halves):
+     - Left: Control-Option-Left Arrow
+     - Right: Control-Option-Right Arrow
+     - Top: Control-Option-Up Arrow
+     - Bottom: Control-Option-Down Arrow
+   - **Move & Resize** (Quarters):
+     - Top Left: Control-Option-U
+     - Top Right: Control-Option-I
+     - Bottom Left: Control-Option-J
+     - Bottom Right: Control-Option-K
+   - **Arrange** (Halves):
+     - Left & Right: Control-Option-Shift-Left Arrow
+     - Right & Left: Control-Option-Shift-Right Arrow
+     - Top & Bottom: Control-Option-Shift-Up Arrow
+     - Bottom & Top: Control-Option-Shift-Down Arrow
+   - **Arrange** (Half and Quarters):
+     - Left & Quarters: Control-Option-Shift-H
+     - Right & Quarters: Control-Option-Shift-L
+     - Top & Quarters: Control-Option-Shift-K
+     - Bottom & Quarters: Control-Option-Shift-J
+   - **Arrange** (Quarters):
+     - Quarters: Control-Command-4
+   - **Other Shortcuts**:
+     - Return to Previous State: Control-Option-Backspace
+   - **Window Movement**:
+     - Move to Previous Display: Control-Option-[
+     - Move to Next Display: Control-Option-]
+     - Move to (or back from) iPad: Control-Option-=
+
 ### iTerm2
 
 1. Download the Nord theme using this command, then open it to install:
