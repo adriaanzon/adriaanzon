@@ -48,6 +48,24 @@ return {
         event = "VeryLazy",
     },
     {
+        "monaqa/dial.nvim",
+        config = function()
+            local augend = require("dial.augend")
+            require("dial.config").augends:register_group {
+                default = {
+                    augend.constant.alias.bool,
+                    augend.integer.alias.decimal_int,
+                },
+            }
+        end,
+        keys = {
+            { "<C-a>", "<Plug>(dial-increment)", mode = { "n", "x" } },
+            { "<C-x>", "<Plug>(dial-decrement)", mode = { "n", "x" } },
+            { "g<C-a>", "<Plug>(dial-g-increment)", mode = { "n", "x" } },
+            { "g<C-x>", "<Plug>(dial-g-decrement)", mode = { "n", "x" } },
+        },
+    },
+    {
         "tommcdo/vim-exchange",
         cond = true, -- allow in vscode
         init = function ()

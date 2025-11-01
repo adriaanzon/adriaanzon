@@ -26,7 +26,7 @@ async def update(connection, theme):
         await profile.async_set_color_preset(preset)
 
     # Call the fish script to set the universal variable and update configuration of other apps.
-    subprocess.run(["{{ .chezmoi.homeDir }}/bin/set_theme.fish", theme_name])
+    subprocess.run(["{{ .chezmoi.homeDir }}/.local/bin/set_theme.fish", theme_name])
 
 
 async def main(connection):

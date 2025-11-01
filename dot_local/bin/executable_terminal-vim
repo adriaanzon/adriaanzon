@@ -3,7 +3,7 @@
 # Open a file in terminal Vim. This script is meant to be invoked from GUI applications, or from a Shortcut.
 #
 # To use as a shortcut, create a shortcut that receives files as input, that runs the "Run Shell Script" action with the following:
-#       /Users/adriaan/bin/terminal-vim "$@"
+#       /Users/adriaan/.local/bin/terminal-vim "$@"
 # Example shortcut: https://www.icloud.com/shortcuts/d1af6c3957634a77986fb0289412af4d
 
 osascript - "$1" <<END

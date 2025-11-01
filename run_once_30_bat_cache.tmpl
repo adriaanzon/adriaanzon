@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/#run-a-script-when-the-contents-of-another-file-changes
+# PHP.sublime-syntax hash: {{ include "private_dot_config/bat/syntaxes/PHP.sublime-syntax" | sha256sum }}
+
+bat cache --build

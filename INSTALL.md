@@ -38,12 +38,23 @@ Next up are some instructions to follow when setting up a new Mac, for options t
     * General > Window > Make sure all boxes are ticked
     * Appearance > Dimming > Dimming Amount: set slider to about 10%
     * Appearance > General > Theme: Minimal
-    * Keys > Hotkey > Show/hide all windows with a system-wide hotkey > Control-Backtick (\`)
+    * Keys > Hotkey > Show/hide all windows with a system-wide hotkey > Command-J (\`)
     * Keys > Key Bindings > Add new > Control-Command-F: Toggle Fullscreen
     * Profiles > General > Command: Custom Shell, /opt/homebrew/bin/fish
     * Profiles > General > Working Directory: Reuse previous session's directory
     * Profiles > Window > Settings for New Windows: 110 columns, 30 rows (or 132x48 for a setup with a large display)
+    * Profiles > Terminal > Notifications > Filter Alerts: Make sure the "Send Bell alert" box is checked, so terminal applications can notify you
     * Profiles > Keys > Left Option Key: Esc+
     * Advanced > Search for "swipe" > Set to No
 4. Go to Scripts > AutoLaunch and click one of the scripts to install the Python runtime and enable the scripting API.
 5. Restart iTerm so all AutoLaunch scripts are started.
+
+## Xdebug
+
+Instructions for PHPStorm: https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html
+
+- Use PHPStorm's Xdebug validator to verify your setup
+- Listen on port 9003, or try configuring a different port if it is busy
+- Uncheck any "(force) break at first line" options
+- Uncheck "Ignore external connections through unregistered server configurations"
+- Ensure the PHPStorm path mappings are set up correctly under Settings > PHP > Servers, or uncheck "Use path mappings" if developing locally.

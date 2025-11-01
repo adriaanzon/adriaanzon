@@ -3,6 +3,7 @@
 # Install essential programs.
 
 cat <<BREWFILE | brew bundle --no-upgrade --file=-
+brew "bat"
 brew "composer"
 brew "fish"
 brew "fzf"
@@ -24,7 +25,7 @@ cask "fork"
 cask "hammerspoon"
 cask "iina"
 cask "iterm2@beta"
-cask "jordanbaird-ice"
+cask "jordanbaird-ice@beta"
 cask "keyboardcleantool"
 cask "maccy"
 cask "monitorcontrol"

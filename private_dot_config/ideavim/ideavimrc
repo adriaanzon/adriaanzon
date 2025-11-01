@@ -41,7 +41,7 @@ nmap gqip <Action>(com.andrewbrookins.idea.wrap.WrapParagraphAction)
 
 " Open the current file at the current line number and column in terminal Vim,
 " and after finishing the edit in Vim, return to PHPStorm.
-nnoremap <Space>t :execute "!/Users/adriaan/bin/terminal-vim-phpstorm %:" . line(".") . ":" . col(".")<CR>
+nnoremap <Space>t :execute "!/Users/adriaan/.local/bin/terminal-vim-phpstorm %:" . line(".") . ":" . col(".")<CR>
 
 " Configure which shortcuts should use Vim actions or IDE actions
 " ===============================================================

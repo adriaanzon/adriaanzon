@@ -7,7 +7,8 @@
             "extensions": {
                 "xdebug": true,
                 "imagick": true,
-                "redis": true
+                "redis": true,
+                "intl": true
             },
             "configuration": {
                 "memory_limit": "1G",
