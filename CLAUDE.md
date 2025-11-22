@@ -1,0 +1,1 @@
+- When you're done editing a Chezmoi-managed dotfile, run `chezmoi apply --source-path <path>` to apply the changes to the home directory.

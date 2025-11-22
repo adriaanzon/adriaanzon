@@ -33,3 +33,11 @@ require("lazy").setup("lazy_spec", {
         },
     },
 })
+
+-- Automatically add lazy-lock.json to chezmoi after plugin updates
+vim.api.nvim_create_autocmd("User", {
+    pattern = "LazyUpdate",
+    callback = function()
+        vim.system({ "chezmoi", "re-add", "~/.config/nvim/lazy-lock.json" })
+    end,
+})
