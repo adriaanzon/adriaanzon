@@ -1,6 +1,17 @@
+# Brew shellenv
 {{ output (printf "%s/bin/brew" .prefix) "shellenv" "fish" }}
+
+# User paths
 set -gx --prepend PATH ~/.local/bin ~/.cargo/bin ~/.composer/vendor/bin ~/Library/Application\ Support/Herd/bin
 set -gx --append PATH vendor/bin node_modules/.bin
+
+# Herd php.ini directories
+{{- $herdConfigPath := printf "%s/Library/Application Support/Herd/config/php" .chezmoi.homeDir }}
+{{- range $dir := glob (printf "%s/*" $herdConfigPath) }}
+  {{- if and (stat $dir).isDir (regexMatch "^\\d{2}$" (base $dir)) }}
+set -gx HERD_PHP_{{ base $dir }}_INI_SCAN_DIR "{{ $dir }}/"
+  {{- end }}
+{{- end }}
 
 set -gx EDITOR (type -q nvim && echo nvim || echo vim)
 set -gx LANG en_US.UTF-8

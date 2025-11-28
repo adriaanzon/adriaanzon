@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+#
+# Toggle Xdebug 3.
+# Usage: toggle-xdebug [on|off]
+
+set -e
+
+php_version="$(php --version | grep -oE 'PHP (\d\.\d)' | cut -d' ' -f2)"
+php_version_herd=$(echo "$php_version" | tr -d '.')
+php_ini_files=$(php --ini)
+php_ini=$(echo "$php_ini_files" | grep "Loaded Configuration File:" | sed -E 's/.*: +//')
+confd=$(echo "$php_ini_files" | grep "Scan for additional .ini files in:" | sed -E 's/.*: +//')
+herd_var="HERD_PHP_${php_version_herd}_INI_SCAN_DIR"
+herd_confd="${!herd_var}"
+xdebug_ini=$confd/20-xdebug.ini
+xdebug_so="/Applications/Herd.app/Contents/Resources/xdebug/xdebug-$php_version_herd-arm64.so"
+
+# Ensure xdebug is installed
+if [[ ! -f "$xdebug_so" ]]
+then
+    echo "Xdebug is not installed."
+    exit 1
+fi
+
+# Ensure the correct conf.d directory is used
+if [[ "$confd" != "$herd_confd" ]]
+then
+    echo "Using unexpected conf.d directory: $confd"
+    exit 1
+fi
+
+# Determine action based on argument or current state
+if [[ "$1" == "on" || "$1" == "off" ]]
+then
+    desired_state="$1"
+elif [[ -f "$xdebug_ini" ]] && grep -F xdebug.mode "$xdebug_ini" > /dev/null && grep -F xdebug.start_with_request "$xdebug_ini" > /dev/null
+then
+    desired_state="off"
+else
+    desired_state="on"
+fi
+
+if [[ "$desired_state" == "off" ]]
+then
+    tput setaf 1; echo -n "⏻"; tput sgr0; echo " Toggling Xdebug off"
+    rm -vf "$xdebug_ini"
+else
+    tput setaf 2; echo -n "⏻"; tput sgr0; echo " Toggling Xdebug on"
+    echo '  Instructions for PHPStorm: https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html'
+    echo '  Pay special attention to the following configuration options:'
+    echo '    - Use PHPStorm’s Xdebug validator to verify your setup'
+    echo '    - Listen on port 9003, or try configuring a different port if it is busy'
+    echo '    - Uncheck any "(force) break at first line" options'
+    echo '    - Uncheck "Ignore external connections through unregistered server configurations"'
+    echo '    - Ensure the PHPStorm path mappings are set up correctly under Settings > PHP > Servers, or uncheck "Use path mappings" if developing locally.'
+    echo "Creating $xdebug_ini"
+    cat << INI | tee "$xdebug_ini"
+[xdebug]
+zend_extension="$xdebug_so"
+xdebug.mode=debug
+xdebug.start_with_request=yes
+xdebug.client_port=9003
+INI
+fi
+
+# Restart PHP-FPM.
+echo "Restarting PHP $php_version"
+herd restart php
