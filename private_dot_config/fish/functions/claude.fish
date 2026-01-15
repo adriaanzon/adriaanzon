@@ -7,5 +7,8 @@ function claude --description 'claude wrapper'
         end
     end
 
+    # Disable auto-updater to pin the version to 2.0.50, which doesn't run out of usage quota as quickly
+    set -lx DISABLE_AUTOUPDATER 1
+
     command claude $argv
 end

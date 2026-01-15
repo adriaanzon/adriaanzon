@@ -12,6 +12,14 @@ return {
         end,
     },
     { "ii14/neorepl.nvim", cmd = "Repl" },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        lazy = false,
+        build = ":TSUpdate",
+        config = function()
+            require'nvim-treesitter'.install { 'php' }
+        end,
+    },
     { "rhysd/vim-gfm-syntax", ft = "markdown" },
     "tpope/vim-scriptease",
 }
