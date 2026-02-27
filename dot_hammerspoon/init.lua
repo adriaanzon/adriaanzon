@@ -29,3 +29,13 @@ hs.urlevent.bind("iTermCommand", function(eventName, params, senderPID)
         hs.eventtap.keyStroke({}, "return")
     end
 end)
+
+-- Toggle Things app with Control-Command-T
+hs.hotkey.bind({ "ctrl", "cmd" }, "T", function()
+    local things = hs.application.get("com.culturedcode.ThingsMac")
+    if things and things:isFrontmost() then
+        things:hide()
+    else
+        hs.application.launchOrFocusByBundleID("com.culturedcode.ThingsMac")
+    end
+end)
