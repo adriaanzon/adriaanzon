@@ -1,7 +1,7 @@
 return {
     { "airblade/vim-helptab", keys = { { "h", mode = "c" } } },
     { "arp242/auto_mkdir2.vim", event = "BufWritePre" },
-    { "farmergreg/vim-lastplace", event = "BufRead" },
+    { "farmergreg/vim-lastplace" },
     "justinmk/vim-dirvish",
     {
         "tpope/vim-abolish",
