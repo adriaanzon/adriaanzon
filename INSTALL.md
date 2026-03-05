@@ -65,27 +65,6 @@ Configure WindowKeys keyboard shortcuts to be similar to Rectangle:
      - Move to Next Display: Control-Option-]
      - Move to (or back from) iPad: Control-Option-=
 
-### iTerm2
-
-1. Download the Nord theme using this command, then open it to install:
-   ```sh
-   curl -Lo ~/Downloads/Nord.itermcolors https://raw.githubusercontent.com/arcticicestudio/nord-iterm2/develop/src/xml/Nord.itermcolors
-   ```
-2. Import the [iTerm Keymap](.Default.itermkeymap). Go to iTerm2 > Preferences... > Profiles > Keys > Key Mappings > Presets > Import... > Go to `~/.local/share/chezmoi` > Show hidden files using Shift-Command-Period (.) and select `.Default.itermkeymap`.
-3. Do some manual configuration:
-    * General > Window > Make sure all boxes are ticked
-    * Appearance > Dimming > Dimming Amount: set slider to about 10%
-    * Appearance > General > Theme: Minimal
-    * Keys > Hotkey > Show/hide all windows with a system-wide hotkey > Command-J (\`)
-    * Keys > Key Bindings > Add new > Control-Command-F: Toggle Fullscreen
-    * Profiles > General > Command: Custom Shell, /opt/homebrew/bin/fish
-    * Profiles > General > Working Directory: Reuse previous session's directory
-    * Profiles > Window > Settings for New Windows: 110 columns, 30 rows (or 132x48 for a setup with a large display)
-    * Profiles > Terminal > Notifications > Filter Alerts: Make sure the "Send Bell alert" box is checked, so terminal applications can notify you
-    * Profiles > Keys > Left Option Key: Esc+
-    * Advanced > Search for "swipe" > Set to No
-4. Go to Scripts > AutoLaunch and click one of the scripts to install the Python runtime and enable the scripting API.
-5. Restart iTerm so all AutoLaunch scripts are started.
 
 ## Xdebug
 

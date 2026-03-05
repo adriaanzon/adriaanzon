@@ -36,6 +36,8 @@ return {
                 replace_keycodes = false
             })
             vim.g.copilot_no_tab_map = true
+            vim.keymap.set('i', '<M-f>', '<Plug>(copilot-accept-word)')
+            vim.keymap.set('i', '<C-e>', '<Plug>(copilot-accept-line)')
         end,
     },
     "tpope/vim-endwise",

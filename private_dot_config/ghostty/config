@@ -1,0 +1,13 @@
+adjust-cell-height = 10%
+bell-features = attention,system
+command = /opt/homebrew/bin/fish
+copy-on-select = clipboard
+cursor-style-blink = false
+font-size = 14
+keybind = cmd+r=reload_config
+keybind = f17=csi:119;9u
+macos-option-as-alt = left
+macos-titlebar-style = tabs
+shell-integration-features = ssh-env
+theme = dark:Nord,light:Tomorrow
+window-new-tab-position = end

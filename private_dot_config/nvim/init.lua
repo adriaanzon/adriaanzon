@@ -28,5 +28,5 @@ vim.cmd("cabbrev qw wq")
 vim.api.nvim_create_autocmd("CmdWinEnter", { command = "startinsert" })
 
 require("adriaan.ansible")
-require("adriaan.iterm2")
+require("adriaan.terminal")
 require("init_lazy")
