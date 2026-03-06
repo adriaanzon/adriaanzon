@@ -1,22 +1,22 @@
-local colors = require("adriaan.colors")
-
-local function init_when(background)
-    return function()
-        if (vim.env.THEME or "dark") == background then
-            colors.set_color_scheme(background)
-        end
-    end
-end
-
 return {
     {
-        "arcticicestudio/nord-vim",
-        config = init_when("dark"),
+        "catppuccin/nvim",
+        name = "catppuccin",
         priority = 1000,
-    },
-    {
-        "cormacrelf/vim-colors-github",
-        config = init_when("light"),
-        priority = 1000,
+        config = function()
+            require("catppuccin").setup({
+                background = { light = "latte", dark = "frappe" },
+                highlight_overrides = {
+                    all = function(colors)
+                        return {
+                            diffAdded = { link = "DiffAdd" },
+                            diffRemoved = { link = "DiffDelete" },
+                        }
+                    end,
+                },
+            })
+
+            vim.cmd.colorscheme("catppuccin")
+        end,
     },
 }

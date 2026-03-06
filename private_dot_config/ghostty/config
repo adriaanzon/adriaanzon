@@ -9,5 +9,5 @@ keybind = f17=csi:119;9u
 macos-option-as-alt = left
 macos-titlebar-style = tabs
 shell-integration-features = ssh-env
-theme = dark:Nord,light:Tomorrow
+theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 window-new-tab-position = end

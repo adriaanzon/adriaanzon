@@ -2,3 +2,8 @@
   type: "file"
   url: "https://ftp.nluug.nl/vim/runtime/spell/nl.utf-8.spl"
   refreshPeriod: "672h"
+
+".config/git/delta-catppuccin.gitconfig":
+  type: "file"
+  url: "https://raw.githubusercontent.com/catppuccin/delta/main/catppuccin.gitconfig"
+  refreshPeriod: "672h"

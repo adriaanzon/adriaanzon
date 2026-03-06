@@ -15,7 +15,9 @@
 [push]
 	autoSetupRemote = true
 [core]
-	pager = delta --color-only --navigate --navigate-regex='^diff' --max-line-length=0
+	pager = delta --features="$DELTA_THEME" --color-only --navigate --navigate-regex='^diff' --max-line-length=0
+[include]
+	path = delta-catppuccin.gitconfig
 {{ if lookPath "composer-git-merge-driver" -}}
 [merge "composer_json"]
     name = composer JSON file merge driver

@@ -13,7 +13,7 @@ brew "git-delta"
 brew "httpie"
 brew "jq"
 brew "mailpit"
-brew "neovim"
+brew "neovim", args: ["--HEAD"]
 brew "node"
 brew "ripgrep"
 brew "shellcheck"
