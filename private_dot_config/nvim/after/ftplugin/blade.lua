@@ -1,3 +1,5 @@
+vim.treesitter.start()
+
 require("nvim-surround").buffer_setup({
     surrounds = {
         m = {

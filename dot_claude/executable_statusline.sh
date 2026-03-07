@@ -23,7 +23,14 @@ if [[ ! "$model" =~ [Ss]onnet ]]; then
 fi
 
 # Add current directory name
-items+=("📂 $(basename "$PWD")")
+dirname=$(basename "$PWD")
+git_branch=$(git branch --show-current 2>/dev/null)
+if [[ -n "$git_branch" ]]
+then
+    items+=("📂 $dirname:$git_branch")
+else
+    items+=("📂 $dirname")
+fi
 
 # Output items delimited by box drawing character with padding
 printf -v output '  │  %s' "${items[@]}"

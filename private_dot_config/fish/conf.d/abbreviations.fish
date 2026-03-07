@@ -12,6 +12,7 @@ abbr -g cdd 'cd ~/.local/share/chezmoi'
 abbr -g cg 'cargo'
 abbr -g ch 'chezmoi'
 abbr -g ci 'composer install'
+abbr -g cl 'claude'
 abbr -g composer --function abbr_develop
 abbr -g cr 'composer require'
 abbr -g crn 'composer run'

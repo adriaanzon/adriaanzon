@@ -28,9 +28,18 @@ return {
         lazy = false,
         build = ":TSUpdate",
         config = function()
-            require("nvim-treesitter").install({ "php" })
+            require("nvim-treesitter").install({
+                "bash",
+                "blade",
+                "html",
+                "javascript",
+                "markdown",
+                "php",
+                "php_only",
+                "typescript",
+                "vue",
+            })
         end,
     },
-    { "rhysd/vim-gfm-syntax", ft = "markdown" },
     "tpope/vim-scriptease",
 }
