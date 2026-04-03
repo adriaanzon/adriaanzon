@@ -41,5 +41,11 @@ return {
             })
         end,
     },
-    "tpope/vim-scriptease",
+    {
+        "tpope/vim-scriptease",
+        config = function()
+            -- Override zS binding to use tree-sitter's :Inspect command.
+            vim.keymap.set('n', 'zS', vim.show_pos)
+        end,
+    }
 }

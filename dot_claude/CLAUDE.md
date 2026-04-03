@@ -1,5 +1,7 @@
 # Personal Claude Code Preferences
 
+- Prefer `rg` (ripgrep) over `grep`.
+
 ## Laravel guidelines
 
 Keep in mind the following guidelines when working on Laravel projects:

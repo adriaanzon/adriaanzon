@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+if [[ ! -d ~/Library/Application\ Support/zen ]]; then
+  echo "Zen Browser does not appear to be installed. Skipping Firefox user.js configuration."
+  exit 0
+fi
+
+for profile in ~/Library/Application\ Support/zen/Profiles/*/; do
+  cat <<'EOF' > "${profile}user.js"
+user_pref("browser.aboutConfig.showWarning", false);
+user_pref("browser.translations.neverTranslateLanguages", "nl");
+
+// Hide clunky back/forward swipe UI
+user_pref("browser.swipe.navigation-icon-end-position", -100);
+
+// Display a wide URL bar at the top of the window
+user_pref("zen.view.use-single-toolbar", false);
+
+// Use colored traffic light buttons for focused windows, matching the rest of macOS
+user_pref("zen.widget.mac.mono-window-controls", false);
+
+// Automatically move container tabs to the correct workspace
+user_pref("zen.workspaces.force-container-workspace", true);
+
+// Do not allow scrolling past the first or last workspace, which can be disorienting
+user_pref("zen.workspaces.wrap-around-navigation", false);
+EOF
+done
