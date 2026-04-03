@@ -6,4 +6,5 @@ function fish_user_key_bindings
     bind --erase \ct
     bind --erase \ec
     bind \cs binding_search
+    bind \cg binding_edit
 end
