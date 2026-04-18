@@ -17,10 +17,18 @@ return {
         config = function()
             vim.lsp.enable({
                 "bashls",
+                "intelephense",
             })
 
             -- Open diagnostics in a floating window when jumping to the next/previous diagnostic (with `]d` and `[d`).
             vim.diagnostic.config({ jump = { float = true } })
+
+            -- Completion options
+            vim.opt.completeopt = { "menuone", "noinsert", "popup", "fuzzy" }
+            vim.keymap.set("i", "<C-Space>", "<C-x><C-o>")
+            vim.keymap.set("i", "<CR>", function()
+                return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+            end, { expr = true, replace_keycodes = false })
         end,
     },
     {
