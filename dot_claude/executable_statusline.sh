@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh --ksharrays
 
 input=$(cat)
 
@@ -24,30 +24,35 @@ get_battery_icon() {
     echo "${battery_icons[level]}"
 }
 
-# Add warning if CLAUDE.md file is missing
-if [ ! -f CLAUDE.md ]
-then
-    items+=("No CLAUDE.md file")
-fi
-
 # Add model name
 model=$(echo "$input" | jq -r '.model.display_name')
 items+=("$model")
+
+# Warning icon if CLAUDE.md is missing
+guidelines_missing_icon=""
+if [ ! -f CLAUDE.md ]
+then
+    guidelines_missing_icon="  󱀶"
+fi
 
 # Add current directory name
 dirname=$(basename "$PWD")
 git_branch=$(git branch --show-current 2>/dev/null)
 if [[ -n "$git_branch" ]]
 then
-    items+=(" $dirname:$git_branch")
+    items+=(" $dirname:$git_branch$guidelines_missing_icon")
 else
-    items+=(" $dirname")
+    items+=(" $dirname$guidelines_missing_icon")
 fi
 
 remaining=$(echo "$input" | jq -r '.context_window.remaining_percentage // 100')
 remaining_int=${remaining%.*}
 battery=$(get_battery_icon "$remaining_int")
-items+=("$battery $remaining%")
+tokens_used=$(echo "$input" | jq -r '(.context_window.current_usage // {}) | ((.input_tokens // 0) + (.cache_creation_input_tokens // 0) + (.cache_read_input_tokens // 0))')
+if (( tokens_used > 0 ))
+then
+    items+=("$battery $(( tokens_used / 1000 ))k")
+fi
 
 # Add rate limits when either bucket exceeds 25%
 five_hour=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // 0')
@@ -59,7 +64,7 @@ then
     # Clock icon based on 5h reset hour (U+F144B=1 through U+F1456=12)
     resets_at=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // 0')
     reset_hour=$(date -r "$resets_at" +%-I)  # 1-12
-    clock_icon=$(python3 -c "print(chr(0xF144A + $reset_hour))")
+    clock_icon=${(#)$(( 0xF144A + reset_hour ))}
     items+=("$clock_icon $five_hour_int%  󰭦 $seven_day_int%")
 fi
 

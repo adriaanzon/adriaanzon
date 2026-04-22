@@ -1,0 +1,39 @@
+#!/bin/sh
+set -eu
+
+input=$(cat)
+[ -z "$input" ] && input='{}'
+
+printf '%s' "$input" | jq '
+  .model = "opus"
+  | .permissions = {
+    "allow": [
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git show:*)",
+      "Bash(git status:*)",
+      "Bash(mkdir:*)",
+      "Bash(php artisan test --parallel:*)",
+      "Bash(vendor/bin/phpstan analyze:*)",
+      "Bash(vendor/bin/pint:*)",
+      "mcp__laravel-boost__database-schema",
+      "mcp__laravel-boost__list-artisan-commands",
+      "mcp__laravel-boost__search-docs"
+    ]
+  }
+  | .statusLine = {
+      "type": "command",
+      "command": "~/.claude/statusline.sh"
+    }
+  | .hooks = {
+      "PostToolUse": [
+        {
+          "matcher": "Write|Edit",
+          "hooks": [
+            { "type": "command", "command": "~/.claude/open-markdown-file.sh" }
+          ]
+        }
+      ]
+    }
+'

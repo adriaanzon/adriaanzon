@@ -1,7 +1,11 @@
 ---
+name: aim
+description: Implement the prepared commit message.
+disable-model-invocation: true
 allowed-tools: Bash(git rev-parse:*)
-description: Implement the changes described in the commit message aim file
 ---
+
+# Aim
 
 ## Context
 

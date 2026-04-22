@@ -7,3 +7,8 @@
   type: "file"
   url: "https://raw.githubusercontent.com/catppuccin/delta/main/catppuccin.gitconfig"
   refreshPeriod: "672h"
+
+"Library/Containers/app.cyan.markedit/Data/Documents/scripts/markedit-preview.js":
+  type: "file"
+  url: "https://raw.githubusercontent.com/MarkEdit-app/MarkEdit-preview/refs/heads/main/dist/markedit-preview.js"
+  refreshPeriod: "672h"
