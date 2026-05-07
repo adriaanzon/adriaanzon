@@ -9,9 +9,14 @@ for profile in ~/Library/Application\ Support/zen/Profiles/*/; do
   cat <<'EOF' > "${profile}user.js"
 user_pref("browser.aboutConfig.showWarning", false);
 user_pref("browser.translations.neverTranslateLanguages", "nl");
+user_pref("extensions.formautofill.creditCards.enabled", false);
 
-// Hide clunky back/forward swipe UI
-user_pref("browser.swipe.navigation-icon-end-position", -100);
+  // Improve side navigation icon
+user_pref("browser.swipe.navigation-icon-start-position", -50);
+user_pref("browser.swipe.navigation-icon-end-position", -1);
+
+// Enable userChrome.css
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 
 // Display a wide URL bar at the top of the window
 user_pref("zen.view.use-single-toolbar", false);
@@ -24,5 +29,66 @@ user_pref("zen.workspaces.force-container-workspace", true);
 
 // Do not allow scrolling past the first or last workspace, which can be disorienting
 user_pref("zen.workspaces.wrap-around-navigation", false);
+EOF
+
+  mkdir -p "${profile}chrome"
+  cat <<'EOF' > "${profile}chrome/userChrome.css"
+// Snappier, Chrome-like swipe navigation indicator: dark circle, white arrow.
+// Reference: https://old.reddit.com/r/FirefoxCSS/comments/11f41rb/how_turn_back_old_indicator_for_two_fingers_swipe/
+//
+// Firefox builds the icon from three SVG parts:
+// .swipe-nav-icon-circle (filled bg), .swipe-nav-icon-circle-outline (ring),
+// .swipe-nav-icon-arrow (chevron). On .will-navigate the defaults invert the
+// fills, so each part must be pinned in both states.
+#historySwipeAnimationPreviousArrow,
+#historySwipeAnimationNextArrow {
+  opacity: 0.95;
+}
+
+/* Scale from the window-edge side so growth happens inward (Chrome-style:
+   the outer edge stays put, the icon expands into the page). The next-arrow
+   container is flipped via scaleX(-1), so `left center` here resolves to the
+   correct outer edge for both directions. */
+#swipe-nav-icon {
+  transform: scale(2);
+  transform-origin: left center;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.2));
+  transition: transform 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+#swipe-nav-icon.will-navigate {
+  transform: scale(2.25);
+}
+
+.swipe-nav-icon-circle {
+  fill: rgba(0, 0, 0, 0.5) !important;
+  stroke: none !important;
+  transition: fill 140ms cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+.swipe-nav-icon.will-navigate .swipe-nav-icon-circle {
+  fill: rgba(0, 0, 0, 0.7) !important;
+}
+
+.swipe-nav-icon-circle-outline,
+.swipe-nav-icon.will-navigate .swipe-nav-icon-circle-outline {
+  fill: transparent !important;
+  stroke: none !important;
+  opacity: 0 !important;
+}
+
+/* Pin arrow white in both states; nudge it toward circle center and
+   thicken via stroke. */
+.swipe-nav-icon-arrow,
+.swipe-nav-icon.will-navigate .swipe-nav-icon-arrow {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 1.2 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  transform: translateX(3px) !important;
+  transition: none !important;
+}
 EOF
 done
