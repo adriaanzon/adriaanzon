@@ -5,7 +5,8 @@ input=$(cat)
 [ -z "$input" ] && input='{}'
 
 printf '%s' "$input" | jq '
-  .model = "opus"
+  .theme = "auto"
+  | .model = "claude-opus-4-6"
   | .permissions = {
     "allow": [
       "Bash(git diff:*)",
