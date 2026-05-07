@@ -28,11 +28,19 @@ printf '%s' "$input" | jq '
       "command": "~/.claude/statusline.sh"
     }
   | .hooks = {
+      "PreToolUse": [
+        {
+          "matcher": "Bash",
+          "hooks": [
+            { "type": "command", "command": "~/.claude/hooks/block-rg-replace.sh" }
+          ]
+        }
+      ],
       "PostToolUse": [
         {
           "matcher": "Write|Edit",
           "hooks": [
-            { "type": "command", "command": "~/.claude/open-markdown-file.sh" }
+            { "type": "command", "command": "~/.claude/hooks/open-markdown-file.sh" }
           ]
         }
       ]
