@@ -13,3 +13,17 @@ vim.keymap.set({ "n", "v" }, "<D-c>", '"+y')
 -- regular horizontal scrolling without shift modifier, and with 3x speed.
 vim.keymap.set({ "n", "i", "v" }, "<S-ScrollWheelLeft>", "<3-ScrollWheelLeft>")
 vim.keymap.set({ "n", "i", "v" }, "<S-ScrollWheelRight>", "<3-ScrollWheelRight>")
+
+-- Buffers opened by shell/Claude "edit command line in $EDITOR" features.
+-- Map the same keybindings that toggle the editor to write+quit, so they
+-- round-trip back to the original prompt.
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = {
+		"/private/tmp/claude-prompt-*.md",
+		"/private/var/folders/*/T/fish.*/command-line.fish",
+	},
+	callback = function(args)
+		vim.keymap.set({ "n", "i", "x" }, "<C-g>", "<Cmd>wq<CR>", { buffer = args.buf, nowait = true })
+		vim.keymap.set({ "n", "i", "x" }, "<M-v>", "<Cmd>wq<CR>", { buffer = args.buf, nowait = true })
+	end,
+})

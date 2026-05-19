@@ -45,12 +45,15 @@ else
     items+=(" $dirname$guidelines_missing_icon")
 fi
 
-remaining=$(echo "$input" | jq -r '.context_window.remaining_percentage // 100')
-remaining_int=${remaining%.*}
-battery=$(get_battery_icon "$remaining_int")
 tokens_used=$(echo "$input" | jq -r '(.context_window.current_usage // {}) | ((.input_tokens // 0) + (.cache_creation_input_tokens // 0) + (.cache_read_input_tokens // 0))')
 if (( tokens_used > 0 ))
 then
+    # Rebase against a 200k effective limit: Opus 4.7 suffers context drift past
+    # ~200k regardless of the model's actual context window.
+    effective_limit=200000
+    remaining_int=$(( 100 - (tokens_used * 100 / effective_limit) ))
+    (( remaining_int < 0 )) && remaining_int=0
+    battery=$(get_battery_icon "$remaining_int")
     items+=("$battery $(( tokens_used / 1000 ))k")
 fi
 

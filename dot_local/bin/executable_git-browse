@@ -10,13 +10,14 @@ set -e
 upstream_branch="$(git rev-parse --abbrev-ref '@{u}' 2>/dev/null || echo -n '')"
 remote="${upstream_branch%%/*}"
 remote="${remote:-origin}"
+remote_url="$(git remote get-url "$remote")"
 current_branch="$(git branch --show-current)"
-default_branch="$(git rev-parse --abbrev-ref "$remote/HEAD" || (git remote set-head "$remote" -a > /dev/null && git rev-parse --abbrev-ref "$remote/HEAD"))"
+default_branch="$(git rev-parse --abbrev-ref "$remote/HEAD" 2>/dev/null || (git remote set-head "$remote" -a > /dev/null 2>&1 && git rev-parse --abbrev-ref "$remote/HEAD" 2>/dev/null) || echo -n '')"
 default_branch="${default_branch##*/}"
 
 if [[ "$current_branch" = "$default_branch" || -z "$upstream_branch" ]]
 then
-    gh browse
+    gh browse -R "$remote_url"
 else
-    gh browse --branch "$current_branch"
+    gh browse -R "$remote_url" --branch "$current_branch"
 fi

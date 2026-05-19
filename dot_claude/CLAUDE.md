@@ -17,4 +17,5 @@ Keep in mind the following guidelines when working on Laravel projects:
 
 ### Superpowers plugin
 
-- Store all superpowers files under `~/.claude/projects/{current_project}/superpowers/` instead of committing them to the project repository.
+- Store all superpowers files under `/Users/adriaan/Library/Mobile Documents/com~apple~CloudDocs/Documents/Superpowers` instead of committing them to the project repository.
+- Use the repository's existing commit style. Do not enforce Conventional Commits unless the project already uses them.
