@@ -24,6 +24,14 @@ get_battery_icon() {
     echo "${battery_icons[level]}"
 }
 
+dirname=$(basename "$PWD")
+git_branch=$(git branch --show-current 2>/dev/null)
+tokens_used=$(echo "$input" | jq -r '(.context_window.current_usage // {}) | ((.input_tokens // 0) + (.cache_creation_input_tokens // 0) + (.cache_read_input_tokens // 0))')
+five_hour_limit=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // 0')
+seven_day_limit=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // 0')
+five_hour_limit_int=${five_hour_limit%.*}
+seven_day_limit_int=${seven_day_limit%.*}
+
 # Add model name
 model=$(echo "$input" | jq -r '.model.display_name')
 items+=("$model")
@@ -33,11 +41,13 @@ guidelines_missing_icon=""
 if [ ! -f CLAUDE.md ]
 then
     guidelines_missing_icon="  󱀶"
+    if (( tokens_used == 0 ))
+    then
+        guidelines_missing_icon="$guidelines_missing_icon No CLAUDE.md file"
+    fi
 fi
 
 # Add current directory name
-dirname=$(basename "$PWD")
-git_branch=$(git branch --show-current 2>/dev/null)
 if [[ -n "$git_branch" ]]
 then
     items+=(" $dirname:$git_branch$guidelines_missing_icon")
@@ -45,7 +55,6 @@ else
     items+=(" $dirname$guidelines_missing_icon")
 fi
 
-tokens_used=$(echo "$input" | jq -r '(.context_window.current_usage // {}) | ((.input_tokens // 0) + (.cache_creation_input_tokens // 0) + (.cache_read_input_tokens // 0))')
 if (( tokens_used > 0 ))
 then
     # Rebase against a 200k effective limit: Opus 4.7 suffers context drift past
@@ -58,17 +67,13 @@ then
 fi
 
 # Add rate limits when either bucket exceeds 25%
-five_hour=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // 0')
-seven_day=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // 0')
-five_hour_int=${five_hour%.*}
-seven_day_int=${seven_day%.*}
-if (( five_hour_int >= 25 || seven_day_int >= 25 ))
+if (( five_hour_limit_int >= 25 || seven_day_limit_int >= 25 ))
 then
     # Clock icon based on 5h reset hour (U+F144B=1 through U+F1456=12)
     resets_at=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // 0')
     reset_hour=$(date -r "$resets_at" +%-I)  # 1-12
     clock_icon=${(#)$(( 0xF144A + reset_hour ))}
-    items+=("$clock_icon $five_hour_int%  󰭦 $seven_day_int%")
+    items+=("$clock_icon $five_hour_limit_int%  󰭦 $seven_day_limit_int%")
 fi
 
 # Output items delimited by box drawing character with padding
