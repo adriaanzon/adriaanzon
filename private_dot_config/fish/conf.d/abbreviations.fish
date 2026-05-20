@@ -11,14 +11,7 @@ abbr -g av 'ansible-vault'
 abbr -g cdd 'cd ~/.local/share/chezmoi'
 abbr -g cg 'cargo'
 abbr -g ch 'chezmoi'
-abbr -g ci 'composer install'
 abbr -g cl 'claude'
-abbr -g composer --function abbr_develop
-abbr -g cr 'composer require'
-abbr -g crn 'composer run'
-abbr -g crun 'composer run'
-abbr -g cu 'composer update'
-abbr -g curn 'composer run'
 abbr -g dc 'docker compose'
 abbr -g dcb 'docker compose build'
 abbr -g dcbu 'docker compose build && docker compose up -d'
@@ -59,14 +52,22 @@ abbr -g i --position anywhere --function abbr_install --regex '\b(i(n(s(t(al??)?
 abbr -g multicd_as_argument --command cd --regex '^\.{3,}$' --function abbr_multicd
 abbr -g multicd_as_command --regex '^\.{3,}$' --function abbr_multicd
 abbr -g nah 'git reset --hard && trash -v (git ls-files --others --exclude-standard --directory --no-empty-directory)'
-abbr -g npm --function abbr_develop
-abbr -g npx --function abbr_develop
 abbr -g opus 'claude --model=opus'
 abbr -g opusplan 'claude --model=opusplan'
-abbr -g php --function abbr_develop
 abbr -g sl 'ls'
 abbr -g sonnet 'claude --model=sonnet'
 abbr -g tinker 'php artisan tinker'
 abbr -g vi 'nvim'
 abbr -g vim 'nvim'
 abbr -g zap --position anywhere --function abbr_zap
+
+abbr_develop ci composer install
+abbr_develop composer composer
+abbr_develop cr composer require
+abbr_develop crn composer run
+abbr_develop crun composer run
+abbr_develop cu composer update
+abbr_develop curn composer run
+abbr_develop npm npm
+abbr_develop npx npx
+abbr_develop php php
