@@ -6,6 +6,7 @@ input=$(cat)
 
 printf '%s' "$input" | jq '
   .theme = "auto"
+  | .terminalProgressBarEnabled = false
   | .model = "claude-opus-4-6"
   | .permissions = {
     "allow": [

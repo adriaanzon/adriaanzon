@@ -18,12 +18,12 @@ vim.keymap.set({ "n", "i", "v" }, "<S-ScrollWheelRight>", "<3-ScrollWheelRight>"
 -- Map the same keybindings that toggle the editor to write+quit, so they
 -- round-trip back to the original prompt.
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = {
-		"/private/tmp/claude-prompt-*.md",
-		"/private/var/folders/*/T/fish.*/command-line.fish",
-	},
-	callback = function(args)
-		vim.keymap.set({ "n", "i", "x" }, "<C-g>", "<Cmd>wq<CR>", { buffer = args.buf, nowait = true })
-		vim.keymap.set({ "n", "i", "x" }, "<M-v>", "<Cmd>wq<CR>", { buffer = args.buf, nowait = true })
-	end,
+    pattern = {
+        "claude-prompt-*.md",
+        "/private/var/folders/*/T/fish.*/command-line.fish",
+    },
+    callback = function(args)
+        vim.keymap.set({ "n", "i", "x" }, "<C-g>", "<Cmd>wq<CR>", { buffer = args.buf, nowait = true })
+        vim.keymap.set({ "n", "i", "x" }, "<M-v>", "<Cmd>wq<CR>", { buffer = args.buf, nowait = true })
+    end,
 })
