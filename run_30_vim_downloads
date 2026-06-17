@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
+echo "=== $CHEZMOI_SOURCE_FILE ==="
+
 # Python provider
 uv pip install --system --upgrade --break-system-packages pynvim

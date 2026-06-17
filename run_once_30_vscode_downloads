@@ -4,6 +4,8 @@
 # A list of installed extensions can be obtained with:
 # code --list-extensions
 
+echo "=== $CHEZMOI_SOURCE_FILE ==="
+
 if ! type code >/dev/null 2>&1;
 then
     echo "VSCode not found, skipping VSCode extensions installation."

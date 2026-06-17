@@ -2,6 +2,7 @@
 
 - Prefer `rg` (ripgrep) over `grep`.
     - Unlike `grep` (which uses BRE where `|` is literal), `rg` uses extended regex by default — `|` is alternation out of the box. Write `rg "foo|bar"`, not `rg "foo\|bar"`.
+    - Unlike `grep`, never pass `-r` to `rg` — it means `--replace`, not recursive. `rg` searches recursively by default.
 - Before writing to auto memory, ask me for approval.
 
 ## Laravel guidelines

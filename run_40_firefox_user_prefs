@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "=== $CHEZMOI_SOURCE_FILE ==="
+
 if [[ ! -d ~/Library/Application\ Support/zen ]]; then
   echo "Zen Browser does not appear to be installed. Skipping Firefox user.js configuration."
   exit 0

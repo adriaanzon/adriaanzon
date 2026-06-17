@@ -57,9 +57,13 @@ fi
 
 if (( tokens_used > 0 ))
 then
-    # Rebase against a 200k effective limit: Opus 4.7 suffers context drift past
-    # ~200k regardless of the model's actual context window.
-    effective_limit=200000
+    # Rebase against the point where context drift sets in, not the actual
+    # context window: ~200k for Opus 4.7/4.8; ~400k for Fable 5 (drifts later,
+    # ~30% denser tokenizer).
+    case $model in
+        (*Fable*|*Mythos*) effective_limit=400000 ;;
+        (*) effective_limit=200000 ;;
+    esac
     remaining_int=$(( 100 - (tokens_used * 100 / effective_limit) ))
     (( remaining_int < 0 )) && remaining_int=0
     battery=$(get_battery_icon "$remaining_int")

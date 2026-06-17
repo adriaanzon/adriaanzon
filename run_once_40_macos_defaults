@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # vim:foldmethod=marker
 
+echo "=== $CHEZMOI_SOURCE_FILE ==="
+
 # System {{{1
 
 # Alert volume to 75% (i.e. don't ruin my music with your loud beeps 😾)

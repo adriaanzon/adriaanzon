@@ -2,10 +2,13 @@
 #
 # Install essential programs.
 
-cat <<BREWFILE | brew bundle --no-upgrade --file=-
+echo "=== $CHEZMOI_SOURCE_FILE ==="
+
+cat <<BREWFILE | brew bundle --no-upgrade --jobs=auto --file=-
 brew "bash-language-server"
 brew "bat"
 brew "composer"
+brew "fd"
 brew "fish"
 brew "fzf"
 brew "gh"
@@ -21,6 +24,7 @@ brew "tree"
 brew "tree-sitter"
 brew "tree-sitter-cli"
 brew "uv"
+brew "vivid"
 brew "yt-dlp"
 cask "balance-lock"
 cask "fork"

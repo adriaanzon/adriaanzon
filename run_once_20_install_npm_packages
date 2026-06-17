@@ -2,4 +2,6 @@
 #
 # Install global npm packages.
 
+echo "=== $CHEZMOI_SOURCE_FILE ==="
+
 npm install -g intelephense

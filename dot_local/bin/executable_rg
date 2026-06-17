@@ -1,0 +1,28 @@
+#!/usr/bin/env fish
+#
+# Wrapper around ripgrep that guards two common mistakes:
+#
+#   - A short -r flag (alone or in a cluster like -rn). In ripgrep -r means
+#     --replace, not recursive — ripgrep already searches recursively. We refuse
+#     rather than silently substituting. Use --replace if you actually meant it.
+#   - A literal \| in the pattern. ripgrep uses extended regex, so \| matches a
+#     literal pipe, not alternation. We can't know intent up front, so we run the
+#     search and only hint (on stderr) when it finds nothing.
+#
+# Installed first on PATH, shadowing the real rg.
+
+set -l original_args $argv
+argparse --move-unknown r 'replace=' -- $argv 2>/dev/null
+if set -ql _flag_r
+    echo "rg -r means --replace, not recursive. ripgrep searches recursively by default. Drop the -r flag, or use --replace if you actually want substitution." >&2
+    exit 2
+end
+
+/opt/homebrew/bin/rg $original_args
+set -l rg_status $status
+
+if test $rg_status -eq 1; and string match -rq -- '\\\\\|' $original_args
+    echo "rg found no matches. Note: rg uses extended regex, so \\| matches a literal pipe. If you meant alternation, retry with | instead of \\|." >&2
+end
+
+exit $rg_status

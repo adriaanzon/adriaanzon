@@ -7,7 +7,6 @@ input=$(cat)
 printf '%s' "$input" | jq '
   .theme = "auto"
   | .terminalProgressBarEnabled = false
-  | .model = "claude-opus-4-6"
   | .permissions = {
     "allow": [
       "Bash(git diff:*)",
@@ -22,6 +21,9 @@ printf '%s' "$input" | jq '
       "mcp__laravel-boost__database-schema",
       "mcp__laravel-boost__list-artisan-commands",
       "mcp__laravel-boost__search-docs"
+    ],
+    "deny": [
+      "Skill(superpowers:writing-skills)"
     ]
   }
   | .statusLine = {
@@ -29,14 +31,6 @@ printf '%s' "$input" | jq '
       "command": "~/.claude/statusline.sh"
     }
   | .hooks = {
-      "PreToolUse": [
-        {
-          "matcher": "Bash",
-          "hooks": [
-            { "type": "command", "command": "~/.claude/hooks/block-rg-replace.sh" }
-          ]
-        }
-      ],
       "PostToolUse": [
         {
           "matcher": "Write|Edit",

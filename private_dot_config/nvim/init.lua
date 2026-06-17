@@ -27,6 +27,15 @@ vim.cmd("cabbrev qw wq")
 
 vim.api.nvim_create_autocmd("CmdWinEnter", { command = "startinsert" })
 
+-- Open each file in its own tab when starting with multiple files.
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		if vim.fn.argc() > 1 then
+			vim.cmd("tab all")
+		end
+	end,
+})
+
 require("adriaan.ansible")
 require("adriaan.terminal")
 require("init_lazy")
