@@ -24,4 +24,4 @@ Keep in mind the following guidelines when working on Laravel projects:
 
 ### Claude in Chrome
 
-- If you need to verify something in the browser but the browser MCP is disconnected, tell me to restart the session with `--chrome`.
+- If you need to verify something in the browser but the browser MCP is disconnected, tell me to restart the session with `claude --chrome --resume <session id>`.

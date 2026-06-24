@@ -12,6 +12,7 @@ for profile in ~/Library/Application\ Support/zen/Profiles/*/; do
 user_pref("browser.aboutConfig.showWarning", false);
 user_pref("browser.translations.neverTranslateLanguages", "nl");
 user_pref("extensions.formautofill.creditCards.enabled", false);
+user_pref("identity.fxaccounts.enabled", false);
 
   // Improve side navigation icon
 user_pref("browser.swipe.navigation-icon-start-position", -50);
