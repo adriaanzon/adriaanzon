@@ -1,0 +1,42 @@
+{
+    "global": { "show_in_menu_bar": false },
+    "profiles": [
+        {
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "Dictation key (F5): tap = FreeFlow latch (Hyper-D), hold = FreeFlow push-to-talk (Hyper-H)",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "f5" },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 175 },
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "d",
+                                        "modifiers": ["left_control", "left_option", "left_shift", "left_command"]
+                                    }
+                                ],
+                                "to_if_held_down": [
+                                    {
+                                        "key_code": "h",
+                                        "modifiers": ["left_control", "left_option", "left_shift", "left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "name": "Default profile",
+            "selected": true,
+            "simple_modifications": [
+                {
+                    "from": { "key_code": "caps_lock" },
+                    "to": [{ "key_code": "left_control" }]
+                }
+            ],
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+        }
+    ]
+}
