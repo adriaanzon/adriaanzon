@@ -5,20 +5,20 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Dictation key (F5): tap = FreeFlow latch (Hyper-D), hold = FreeFlow push-to-talk (Hyper-H)",
+                        "description": "Dictation key (F5): press = FreeFlow push-to-talk immediately (hold Hyper chord), quick release = latch (Hyper-D while chord still held)",
                         "manipulators": [
                             {
                                 "from": { "key_code": "f5" },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 175 },
-                                "to_if_alone": [
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [
                                     {
-                                        "key_code": "d",
+                                        "key_code": "vk_none",
                                         "modifiers": ["left_control", "left_option", "left_shift", "left_command"]
                                     }
                                 ],
-                                "to_if_held_down": [
+                                "to_if_alone": [
                                     {
-                                        "key_code": "h",
+                                        "key_code": "d",
                                         "modifiers": ["left_control", "left_option", "left_shift", "left_command"]
                                     }
                                 ],
