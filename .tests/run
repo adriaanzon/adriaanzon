@@ -1,0 +1,45 @@
+#!/usr/bin/env fish
+#
+# Test runner. Runs every *.test.fish under .tests/, or only the files and
+# directories passed as arguments (absolute, or relative to .tests/):
+#
+#     .tests/run                              # everything
+#     .tests/run scripts                      # one category
+#     .tests/run scripts/rg-wrapper.test.fish # one file
+
+set -l tests_dir (path resolve (status dirname))
+
+set -l targets $argv
+test (count $targets) -eq 0; and set targets $tests_dir
+
+set -l files
+for target in $targets
+    test -e "$target"; or set target $tests_dir/$target
+    if test -d "$target"
+        set -a files $target/**.test.fish
+    else if test -f "$target"
+        set -a files $target
+    else
+        echo "no such test file or directory: $target" >&2
+        exit 1
+    end
+end
+
+if test (count $files) -eq 0
+    echo "no *.test.fish files found" >&2
+    exit 1
+end
+
+set -l failed 0
+for file in $files
+    echo (path resolve $file | string replace $tests_dir/ '')
+    fish $tests_dir/driver.fish $file
+    test $status -eq 0; or set failed (math $failed + 1)
+end
+
+echo
+if test $failed -gt 0
+    echo "FAIL: $failed of "(count $files)" test file(s) failed"
+    exit 1
+end
+echo "PASS: "(count $files)" test file(s)"

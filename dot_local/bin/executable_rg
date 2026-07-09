@@ -2,19 +2,34 @@
 #
 # Wrapper around ripgrep that guards two common mistakes:
 #
-#   - A short -r flag (alone or in a cluster like -rn). In ripgrep -r means
-#     --replace, not recursive — ripgrep already searches recursively. We refuse
-#     rather than silently substituting. Use --replace if you actually meant it.
+#   - A short -r flag (alone or in a cluster like -rln). In ripgrep -r means
+#     --replace, not recursive — ripgrep already searches recursively. Worse, in
+#     a cluster like -rln the "ln" becomes the replacement string, silently
+#     swallowing the intended flags. We refuse rather than silently
+#     substituting. Use --replace if you actually meant it.
 #   - A literal \| in the pattern. ripgrep uses extended regex, so \| matches a
 #     literal pipe, not alternation. We can't know intent up front, so we run the
-#     search and only hint (on stderr) when it finds nothing.
+#     search and only hint when it finds nothing.
+#
+# Steering messages go to stderr, unless the caller redirected stderr to
+# /dev/null (agents habitually append 2>/dev/null) — then they go to stdout so
+# they still reach the caller. In the -r case stdout is safe to use: we refuse
+# to run, so there is no search output to contaminate.
 #
 # Installed first on PATH, shadowing the real rg.
+
+function steer --description 'print message to stderr, or stdout if stderr was discarded'
+    if /bin/test /dev/fd/2 -ef /dev/null
+        printf '%s\n' $argv
+    else
+        printf '%s\n' $argv >&2
+    end
+end
 
 set -l original_args $argv
 argparse --move-unknown r 'replace=' -- $argv 2>/dev/null
 if set -ql _flag_r
-    echo "rg -r means --replace, not recursive. ripgrep searches recursively by default. Drop the -r flag, or use --replace if you actually want substitution." >&2
+    steer "rg: refusing to run: in ripgrep -r means --replace, not recursive (ripgrep already searches recursively). In a flag cluster like -rln, everything after the r is taken as the replacement string, swallowing the other flags. Retry without the r, or use --replace explicitly if you really meant substitution."
     exit 2
 end
 
@@ -22,7 +37,7 @@ end
 set -l rg_status $status
 
 if test $rg_status -eq 1; and string match -rq -- '\\\\\|' $original_args
-    echo "rg found no matches. Note: rg uses extended regex, so \\| matches a literal pipe. If you meant alternation, retry with | instead of \\|." >&2
+    steer "rg found no matches. Note: rg uses extended regex, so \\| matches a literal pipe. If you meant alternation, retry with | instead of \\|."
 end
 
 exit $rg_status

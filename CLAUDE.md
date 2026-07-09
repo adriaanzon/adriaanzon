@@ -3,3 +3,4 @@ This repo is managed by [Chezmoi](https://www.chezmoi.io/), a dotfiles manager. 
 - Source files use Chezmoi naming conventions: `dot_` prefix replaces `.`, `executable_` prefix sets the executable bit, `modify_` prefix runs the script as a modifier on the existing target file, etc.
 - To apply a single file after editing: `chezmoi apply --source-path <path>` (where `<path>` is the source path in this repo).
 - Do not edit files directly in `~/.config/`, `~/.claude/`, etc. — edit the source here and apply.
+- Tests live in `.tests/` (ignored by chezmoi). Run `.tests/run` after changing scripts under `dot_local/bin`; `.tests/scripts/` tests source files directly, `.tests/state/` asserts the applied machine state.
