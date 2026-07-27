@@ -19,6 +19,8 @@ abbr -g dcbu 'docker compose build && docker compose up -d'
 abbr -g dcd 'docker compose down'
 abbr -g dce 'docker compose exec'
 abbr -g dcu 'docker compose up -d'
+abbr -g fab 'claude --model=fable'
+abbr -g fable 'claude --model=fable'
 abbr -g ga 'git add'
 abbr -g gaa 'git add --all'
 abbr -g gb 'git browse'
@@ -56,10 +58,12 @@ abbr -g nah 'git reset --hard && trash -v (git ls-files --others --exclude-stand
 abbr -g opus 'claude --model=opus'
 abbr -g opusplan 'claude --model=opusplan'
 abbr -g sl 'ls'
+abbr -g son 'claude --model=sonnet'
 abbr -g sonnet 'claude --model=sonnet'
 abbr -g tinker 'php artisan tinker'
 abbr -g vi 'nvim'
 abbr -g vim 'nvim'
+abbr -g wget 'curl -LO'
 abbr -g zap --position anywhere --function abbr_zap
 
 abbr_develop ci composer install

@@ -4,6 +4,11 @@
     - Unlike `grep` (which uses BRE where `|` is literal), `rg` uses extended regex by default — `|` is alternation out of the box. Write `rg "foo|bar"`, not `rg "foo\|bar"`.
     - Unlike `grep`, never pass `-r` to `rg` — it means `--replace`, not recursive. `rg` searches recursively by default.
 - Before writing to auto memory, ask me for approval.
+- Never use the AskUserQuestion tool — text in the same turn as the tool call is not shown to me. Ask questions as plain markdown text at the end of your turn instead, one question per turn. Exception: when I explicitly instruct you to use it, or when a skill's instructions direct you to call it (such skills have a workaround baked in).
+
+## Markdown guidelines
+
+- When writing Markdown, don't hard-wrap paragraphs. Keep each paragraph on a single line and let it soft-wrap; only use newlines to separate block elements (paragraphs, list items, headings).
 
 ## Laravel guidelines
 

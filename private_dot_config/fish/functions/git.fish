@@ -50,11 +50,11 @@ function _git_run_catching_worktree_collision
             and command git $argv
             return
         case e E
-            # Swap branches: move the other worktree onto our branch, then take the
-            # requested branch here. Detach here first so our branch is free to move.
+            # Swap branches: move the other worktree onto our branch (tolerating the
+            # momentary double checkout), then take the freed branch here. Never
+            # detach, so `git switch -` keeps working afterwards.
             set -l current_branch (command git branch --show-current)
-            command git checkout --detach
-            and command git -C $worktree checkout $current_branch
+            command git -C $worktree switch --ignore-other-worktrees $current_branch
             and command git $argv
             return
     end
