@@ -12,3 +12,8 @@
   type: "file"
   url: "https://raw.githubusercontent.com/MarkEdit-app/MarkEdit-preview/refs/heads/main/dist/markedit-preview.js"
   refreshPeriod: "672h"
+
+".claude/skills/efficient-fable/SKILL.md":
+  type: "file"
+  url: "https://raw.githubusercontent.com/BuilderIO/skills/refs/heads/main/skills/efficient-fable/SKILL.md"
+  refreshPeriod: "672h"

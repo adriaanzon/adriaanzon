@@ -1,0 +1,1 @@
+- Comments describe the code as it stands; the story of a change (what broke, why this fix) belongs in the commit message and PR description.

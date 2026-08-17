@@ -6,6 +6,7 @@ input=$(cat)
 
 printf '%s' "$input" | jq '
   .theme = "auto"
+  | .language = "en, nl"
   | .terminalProgressBarEnabled = false
   | .permissions = {
     "allow": [

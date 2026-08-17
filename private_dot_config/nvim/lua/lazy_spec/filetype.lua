@@ -21,7 +21,13 @@ return {
             })
 
             -- Open diagnostics in a floating window when jumping to the next/previous diagnostic (with `]d` and `[d`).
-            vim.diagnostic.config({ jump = { float = true } })
+            vim.diagnostic.config({
+                jump = {
+                    on_jump = function(_, bufnr)
+                        vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+                    end,
+                },
+            })
 
             -- Completion options
             vim.opt.completeopt = { "menuone", "noinsert", "popup", "fuzzy" }
