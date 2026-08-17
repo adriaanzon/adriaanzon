@@ -17,3 +17,11 @@
   type: "file"
   url: "https://raw.githubusercontent.com/BuilderIO/skills/refs/heads/main/skills/efficient-fable/SKILL.md"
   refreshPeriod: "672h"
+
+".claude/skills/receiving-code-review":
+  type: "archive"
+  url: "https://github.com/obra/superpowers/archive/refs/heads/main.tar.gz"
+  exact: true
+  stripComponents: 3
+  include: ["*/skills/receiving-code-review/**"]
+  refreshPeriod: "672h"

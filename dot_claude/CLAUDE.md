@@ -27,6 +27,7 @@ Keep in mind the following guidelines when working on Laravel projects:
 - Store all superpowers files under `/Users/adriaan/Library/Mobile Documents/com~apple~CloudDocs/Documents/Superpowers` instead of committing them to the project repository.
 - Use the repository's existing commit style. Do not enforce Conventional Commits unless the project already uses them.
 
-### Claude in Chrome
+### Matt Pocock's skills
 
-- If you need to verify something in the browser but the browser MCP is disconnected, tell me to restart the session with `claude --chrome --resume <session id>`.
+- Store specs created with the `/mattpocock-skills:to-spec` skill in the `specs` superpowers subdirectory too.
+- Not all my projects have a CONTEXT.md, do not hunt for it when it's not at the project root.

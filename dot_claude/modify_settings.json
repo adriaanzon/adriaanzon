@@ -41,4 +41,6 @@ printf '%s' "$input" | jq '
         }
       ]
     }
+    | .enabledPlugins."context7@claude-plugins-official" = true
+    | .enabledPlugins."mattpocock-skills@claude-plugins-official" = true
 '
