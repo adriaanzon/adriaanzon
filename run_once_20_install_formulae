@@ -15,7 +15,7 @@ brew "gh"
 brew "git-delta"
 brew "httpie"
 brew "mailpit"
-brew "neovim", args: ["--HEAD"]
+brew "neovim"
 brew "node"
 brew "raine/claude-history/claude-history", trusted: true
 brew "ripgrep"

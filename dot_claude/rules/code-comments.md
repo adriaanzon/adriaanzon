@@ -1,1 +1,2 @@
-- Comments describe the code as it stands; the story of a change (what broke, why this fix) belongs in the commit message and PR description.
+- Comments describe the code as it stands; the story of a change (what broke, why this fix, what it enables) belongs in the commit message and PR description.
+- End each comment at the standing fact; a trailing "so that…" / "to allow…" clause earns its place only when it says something a maintainer needs that the code can't show.
