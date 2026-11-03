@@ -1,4 +1,6 @@
-{{- $email := promptString "email" -}}
+{{- $email := promptStringOnce . "email" "Email address" -}}
+{{- $featurePhp := promptBoolOnce . "featurePhp" "Set up PHP development tooling" -}}
 data:
   email: "{{ $email }}"
+  featurePhp: {{ $featurePhp }}
   prefix: {{- if (eq .chezmoi.arch "amd64") }} "/usr/local" {{- else }} "/opt/homebrew" {{- end }}

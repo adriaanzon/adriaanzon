@@ -3,5 +3,6 @@
 # Install global npm packages.
 
 echo "=== $CHEZMOI_SOURCE_FILE ==="
-
+{{ if .featurePhp }}
 npm install -g intelephense
+{{ end }}

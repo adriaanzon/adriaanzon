@@ -1,2 +1,15 @@
 /*.md
 LICENSE
+
+{{ if not .featurePhp -}}
+# PHP feature (see .chezmoi.yaml.tmpl)
+.claude/skills/dogfood-composer-package
+.claude/skills/resolve-composer-lock-conflict
+.config/phpmon
+.config/psysh
+.local/bin/clear_all_queues.php
+.local/bin/json2php
+.local/bin/terminal-vim-phpstorm
+.local/bin/toggle-xdebug
+intelephense
+{{- end }}

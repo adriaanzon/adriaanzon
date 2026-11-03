@@ -7,14 +7,12 @@ echo "=== $CHEZMOI_SOURCE_FILE ==="
 cat <<BREWFILE | brew bundle --no-upgrade --jobs=auto --file=-
 brew "bash-language-server"
 brew "bat"
-brew "composer"
 brew "fd"
 brew "fish"
 brew "fzf"
 brew "gh"
 brew "git-delta"
 brew "httpie"
-brew "mailpit"
 brew "neovim"
 brew "node"
 brew "raine/claude-history/claude-history", trusted: true
@@ -31,7 +29,6 @@ cask "balance-lock"
 cask "fork"
 cask "ghostty"
 cask "hammerspoon"
-cask "herd"
 cask "iina"
 cask "karabiner-elements"
 cask "keyboardcleantool"
@@ -40,4 +37,10 @@ cask "markedit"
 cask "monitorcontrol"
 cask "qlstephen"
 cask "windowkeys"
+{{ if .featurePhp }}
+# PHP development tooling
+brew "composer"
+brew "mailpit"
+cask "herd"
+{{ end }}
 BREWFILE
