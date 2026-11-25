@@ -1,4 +1,6 @@
-/*.md
+# Don't install this repo's own docs (README.md, INSTALL.md, CLAUDE.md) into ~.
+# Top level only: `*` doesn't match `/`, so .claude/CLAUDE.md is still installed.
+*.md
 LICENSE
 
 {{ if not .featurePhp -}}
